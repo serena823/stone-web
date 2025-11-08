@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>往事回忆相册</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Microsoft YaHei', 'SimSun', serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            color: #0d47a1;
+            padding: 20px;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(33, 150, 243, 0.2);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.5;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-1000%) translateX(1000%) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            border-bottom: 2px solid rgba(33, 150, 243, 0.3);
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, #2196f3, #64b5f6, #2196f3);
+        }
+        
+        h1 {
+            font-size: 3rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            letter-spacing: 3px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #2196f3, transparent);
+            border-radius: 3px;
+        }
+        
+        .subtitle {
+            font-size: 1.3rem;
+            color: #1565c0;
+            font-style: italic;
+            position: relative;
+        }
+        
+        .photo-album {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .memory-item {
+            display: flex;
+            align-items: center;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        .memory-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, #2196f3, #64b5f6, #2196f3);
+        }
+        
+        .memory-item:hover {
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 15px 40px rgba(13, 71, 161, 0.2);
+        }
+        
+        .photo-container {
+            width: 220px;
+            height: 160px;
+            background: linear-gradient(135deg, #f5f5f5 0%, #e3f2fd 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 30px;
+            overflow: hidden;
+            flex-shrink: 0;
+            border-radius: 10px;
+            box-shadow: 0 8px 20px rgba(13, 71, 161, 0.1);
+            position: relative;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .photo-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+            z-index: 1;
+        }
+        
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+            position: relative;
+            z-index: 0;
+        }
+        
+        .memory-item:hover .photo-container {
+            transform: scale(1.05);
+            box-shadow: 0 12px 25px rgba(13, 71, 161, 0.15);
+        }
+        
+        .memory-item:hover .photo-container img {
+            transform: scale(1.1);
+        }
+        
+        .memory-content {
+            flex: 1;
+            position: relative;
+        }
+        
+        .memory-title {
+            font-size: 1.6rem;
+            color: #0d47a1;
+            margin-bottom: 15px;
+            border-bottom: 1px dotted rgba(33, 150, 243, 0.5);
+            padding-bottom: 10px;
+            position: relative;
+        }
+        
+        .memory-title::before {
+            content: "\f069";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 10px;
+            color: #2196f3;
+        }
+        
+        .memory-desc {
+            font-size: 1.1rem;
+            color: #1565c0;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .memory-date {
+            font-size: 1rem;
+            color: #2196f3;
+            margin-top: 10px;
+            font-style: italic;
+            display: inline-block;
+            background: rgba(33, 150, 243, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+        
+        .quote-section {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            margin-top: 40px;
+            line-height: 1.8;
+            position: relative;
+            border-left: 5px solid #2196f3;
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        .quote-section::before {
+            content: """;
+            font-size: 100px;
+            color: #64b5f6;
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        
+        .quote-section::after {
+            content: """;
+            font-size: 100px;
+            color: #64b5f6;
+            position: absolute;
+            bottom: -40px;
+            right: 20px;
+            opacity: 0.2;
+            font-family: Georgia, serif;
+        }
+        
+        .quote-icon {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            color: #2196f3;
+            opacity: 0.3;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 30px;
+            color: #1565c0;
+            font-size: 1rem;
+            border-top: 2px solid rgba(33, 150, 243, 0.3);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(13, 71, 161, 0.05);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .heart-icon {
+            color: #42a5f5;
+            animation: heartbeat 1.5s infinite;
+        }
+        
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            5% { transform: scale(1.1); }
+            10% { transform: scale(1); }
+            15% { transform: scale(1.1); }
+            50% { transform: scale(1); }
+            100% { transform: scale(1); }
+        }
+        
+        @media (max-width: 768px) {
+            .memory-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .photo-container {
+                width: 100%;
+                height: 220px;
+                margin-right: 0;
+                margin-bottom: 20px;
+            }
+            
+            h1 {
+                font-size: 2.3rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .memory-title {
+                font-size: 1.4rem;
+            }
+            
+            .quote-section {
+                padding: 25px 20px;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .memory-item {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .memory-item:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .memory-item:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .memory-item:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        
+        .memory-item:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+        
+        .memory-item:nth-child(5) {
+            animation-delay: 0.5s;
+        }
+        
+        .quote-section {
+            animation: fadeInUp 0.8s ease-out 0.6s forwards;
+            opacity: 0;
+        }
+        
+        footer {
+            animation: fadeInUp 0.8s ease-out 0.8s forwards;
+            opacity: 0;
+        }
+        
+        /* 毛玻璃效果 */
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <header>
+            <h1>往事回忆</h1>
+            <p class="subtitle">时光荏苒，记忆永恒</p >
+        </header>
+        
+        <div class="photo-album">
+            <div class="memory-item">
+                <div class="photo-container">
+                   <img src="img/微信图片_2025-11-04_213936_878.jpg" />
+                </div>
+                <div class="memory-content">
+                    <h3 class="memory-title">关鑫的凌空飞掷</h3>
+                    <p class="memory-desc">那些值得抓拍的时光，如同精彩的新闻一般，在记忆深处闪闪发光。每一个努力，每一次突破，都是成长中最宝贵的礼物。</p >
+                    <p class="memory-date">拍摄于：2025秋季运动会</p >
+                </div>
+            </div>
+            
+            <div class="memory-item">
+                <div class="photo-container">
+                <img src="img/微信图片_2025-11-04_214003_243.jpg"  />
+                </div>
+                <div class="memory-content">
+                    <h3 class="memory-title">跑前来自于强者的自信</h3>
+                    <p class="memory-desc">永不褪色的青春记忆，那些年我们一起追逐第一，无畏前行。青春是一本太闪耀的书，我们一起，创造辉煌。</p >
+                    <p class="memory-date">拍摄于：2025秋季运动会</p >
+                </div>
+            </div>
+            
+            <div class="memory-item">
+                <div class="photo-container">
+                  <img src="img/微信图片_2025-11-04_213941_782.jpg"  />
+                </div>
+                <div class="memory-content">
+                    <h3 class="memory-title">实力担当的苗智贤</h3>
+                    <p class="memory-desc">长跑比赛已过大半仍然遥遥领先</p >
+                    <p class="memory-date">拍摄于：2025秋季运动会</p >
+                </div>
+            </div>
+            
+            <div class="memory-item">
+                <div class="photo-container">
+                   <img src="img/微信图片_2025-11-04_213932_322.jpg" alt="" />
+                </div>
+                <div class="memory-content">
+                    <h3 class="memory-title">投掷铅球的郝洪霖</h3>
+                    <p class="memory-desc">看郝洪霖大力地掷出了铅球</p >
+                    <p class="memory-date">拍摄于：2025秋季运动会</p >
+                </div>
+            </div>
+            
+            <div class="memory-item">
+                <div class="photo-container">
+                  <img src="img/微信图片_2025-11-04_213906_208.jpg" alt="" />
+                </div>
+                <div class="memory-content">
+                    <h3 class="memory-title">时光记忆</h3>
+                    <p class="memory-desc">走过的风景，留下的足迹。每一次旅行都是一次心灵的洗礼，让我们在陌生的地方发现久违的感动。</p >
+                    <p class="memory-date">拍摄于：2025</p >
+                </div>
+            </div>
+        </div>
+        
+        <div class="quote-section">
+            <i class="fas fa-quote-left quote-icon"></i>
+            <p>时光如水，静静流淌，带走了岁月，却带不走那些珍贵的回忆。每一张照片都是一个故事，每一个瞬间都值得珍藏。在这里，我们记录下生命中的点点滴滴，那些欢笑、泪水、成功与挫折，共同构成了我们独一无二的人生画卷。</p >
+            <p style="margin-top: 20px;">当岁月悄然流逝，这些回忆将成为我们最宝贵的财富，温暖我们的心灵，照亮前行的道路。让我们珍惜当下，创造更多美好的回忆，让生命的每一刻都充满意义。</p >
+        </div>
+        
+        <footer>
+            <div class="footer-content">
+                <p>© 2025 往事回忆相册</p>
+                <i class="fas fa-heart heart-icon"></i>
+                <p>珍藏每一刻</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 创建背景粒子效果
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小
+                const size = Math.random() * 12 + 3;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟和持续时间
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // 页面加载完成后执行
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+        });
+    </script>
+</body>
+</html>

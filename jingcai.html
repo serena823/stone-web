@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>男生班级视频展示</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            background-attachment: fixed;
+        }
+        
+        .page-title {
+            text-align: center;
+            color: white;
+            font-size: 2.8rem;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            margin: 20px 0;
+            letter-spacing: 3px;
+            font-weight: bold;
+        }
+        
+        .year-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            margin-left: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            vertical-align: super;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        header {
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+            color: white;
+            padding: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+        
+        .subtitle {
+            font-size: 1.3em;
+            opacity: 0.9;
+            margin-top: 15px;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        .section-title {
+            text-align: center;
+            color: #0f2027;
+            padding: 20px 0;
+            font-size: 2rem;
+            margin: 0;
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            position: relative;
+        }
+        
+        .section-title:before,
+        .section-title:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, transparent, white, transparent);
+        }
+        
+        .section-title:before {
+            left: 15%;
+        }
+        
+        .section-title:after {
+            right: 15%;
+        }
+        
+        .upload-section {
+            padding: 30px;
+            text-align: center;
+            background-color: #f8f9fa;
+            border-bottom: 2px dashed #26d0ce;
+        }
+        
+        .upload-section h2 {
+            color: #0f2027;
+            margin-top: 0;
+            font-size: 1.8rem;
+        }
+        
+        .video-input {
+            width: 70%;
+            padding: 14px;
+            font-size: 16px;
+            border: 2px solid #26d0ce;
+            border-radius: 30px;
+            outline: none;
+            transition: all 0.3s;
+            box-shadow: 0 0 10px rgba(38, 208, 206, 0.2);
+        }
+        
+        .video-input:focus {
+            border-color: #1a2980;
+            box-shadow: 0 0 15px rgba(26, 41, 128, 0.4);
+            transform: scale(1.01);
+        }
+        
+        .load-btn {
+            padding: 14px 35px;
+            font-size: 17px;
+            background: linear-gradient(45deg, #1a2980, #26d0ce);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin-left: 15px;
+            transition: all 0.3s;
+            box-shadow: 0 5px 15px rgba(26, 41, 128, 0.4);
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .load-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(26, 41, 128, 0.6);
+        }
+        
+        .load-btn:active {
+            transform: translateY(1px);
+        }
+        
+        .videos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            padding: 30px;
+        }
+        
+        .video-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(38, 208, 206, 0.3);
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .video-card-header {
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.3rem;
+        }
+        
+        .video-container {
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .video-placeholder {
+            background-color: #f0f8ff;
+            border: 2px dashed #26d0ce;
+            border-radius: 10px;
+            padding: 40px 20px;
+            color: #666;
+            font-style: italic;
+            margin: 10px 0;
+        }
+        
+        video {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background-color: #000;
+            aspect-ratio: 16/9;
+        }
+        
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .control-btn {
+            padding: 8px 15px;
+            background: linear-gradient(to right, #1a2980, #26d0ce);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
+            color: #eee;
+            font-size: 1rem;
+            margin-top: 20px;
+        }
+        
+        .badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            margin: 0 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .videos-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .video-input {
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .load-btn {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="page-title">2025 秋季运动会<span class="year-badge">NEW</span></h1>
+    
+    <div class="container">
+        <header>
+            <h1>男生班级风采</h1>
+            <div class="subtitle">青春·活力·团结·向上</div>
+        </header>
+        
+
+
+        <!-- 视频展示区域 -->
+        <h2 class="section-title">精彩瞬间回顾</h2>
+        
+        <div class="videos-grid" id="videosContainer">
+            <!-- 默认视频展示框 -->
+            <div class="video-card">
+                <div class="video-card-header">
+                    三千米长跑精彩瞬间 <span class="badge">必看</span>
+                </div>
+                <div class="video-container">
+                    <div class="video-placeholder"></div>
+               <video src="vodie\微信视频2025-11-06_205921_701.mp4"controls> 
+                     
+                    </video>
+                </div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-card-header">
+                     展示神力<span class="badge">热门</span>
+                </div>
+                <div class="video-container">
+                    <div class="video-placeholder"></div>
+                   <video src="vodie\微信视频2025-11-06_203837_817.mp4"controls> 
+                </div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-card-header">
+                    4x100米接力赛 <span class="badge">经典</span>
+                </div>
+                <div class="video-container">
+                    <div class="video-placeholder"></div>
+					
+					
+                <video src="vodie\微信视频2025-11-06_205915_927.mp4"controls> 
+                
+				</div>
+            </div>
+            
+            <div class="video-card">
+                <div class="video-card-header">
+                    班级入场式视频<span class="badge">纪念</span>
+                </div>
+                <div class="video-container">
+                    <div class="video-placeholder"></div>
+					
+                  <video src="vodie\微信视频2025-11-06_214413_103.mp4"controls> 
+                </div>
+				
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2025 班级视频展示平台 | 记录我们的青春时光 | 男生班级专属</p>
+        </footer>
+    </div>
+
+    <script>
+        function addVideo() {
+            const videoUrl = document.getElementById('videoUrl').value;
+            
+            if (videoUrl.trim() === '') {
+                alert('请输入视频链接');
+                return;
+            }
+            
+            // 创建新的视频卡片
+            const videosContainer = document.getElementById('videosContainer');
+            const videoCount = videosContainer.children.length + 1;
+            
+            const videoCard = document.createElement('div');
+            videoCard.className = 'video-card';
+            videoCard.innerHTML = `
+                <div class="video-card-header">
+                    视频 ${videoCount} <span class="badge">新</span>
+                </div>
+                <div class="video-container">
+                    <video controls>
+                        您的浏览器不支持视频播放功能，请升级浏览器。
+                    </video>
+                </div>
+            `;
+            
+            // 添加到容器中
+            videosContainer.appendChild(videoCard);
+            
+            // 设置视频源
+            const videoElement = videoCard.querySelector('video');
+            videoElement.src = videoUrl;
+            videoElement.load();
+            
+            // 清空输入框
+            document.getElementById('videoUrl').value = '';
+        }
+    </script>
+</body>
+</html>

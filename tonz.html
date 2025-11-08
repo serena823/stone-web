@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>班级公告 - 实时更新</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1e5799 0%, #2989d8 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-1000%) translateX(1000%) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1e5799 0%, #2989d8 100%);
+            color: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        header::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            transform: rotate(30deg);
+            z-index: 0;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        header h1 i {
+            margin-right: 15px;
+            font-size: 2.2rem;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .date-display {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 15px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            backdrop-filter: blur(5px);
+        }
+        
+        .date-display .current-date {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1e5799;
+        }
+        
+        .date-display .update-info {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .announcement-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .announcement {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .announcement::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #1e5799, #2989d8);
+        }
+        
+        .announcement:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+        }
+        
+        .announcement-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .announcement-title {
+            font-size: 1.4rem;
+            color: #1e5799;
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+        }
+        
+        .announcement-title i {
+            margin-right: 12px;
+            color: #ff9800;
+            font-size: 1.3rem;
+        }
+        
+        .announcement-time {
+            color: #777;
+            font-size: 0.95rem;
+            background: #f0f5ff;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 500;
+        }
+        
+        .announcement-content {
+            padding: 15px 0;
+        }
+        
+        .announcement-content p {
+            margin-bottom: 15px;
+            line-height: 1.7;
+        }
+        
+        .announcement-content ul {
+            padding-left: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .announcement-content li {
+            margin-bottom: 12px;
+            line-height: 1.7;
+        }
+        
+        .highlight {
+            background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+            padding: 20px;
+            border-radius: 12px;
+            margin: 20px 0;
+            border-left: 5px solid #ffc107;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .important {
+            color: #e53935;
+            font-weight: bold;
+        }
+        
+        .warning {
+            background: linear-gradient(135deg, #ffebee 0%, #ffdada 100%);
+            border-left: 5px solid #e53935;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .success {
+            background: linear-gradient(135deg, #e8f5e9 0%, #d0f0d1 100%);
+            border-left: 5px solid #4caf50;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .info {
+            background: linear-gradient(135deg, #e3f2fd 0%, #cce6ff 100%);
+            border-left: 5px solid #2196f3;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+        
+        .emoji {
+            font-size: 1.2rem;
+            margin-right: 5px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding: 25px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            backdrop-filter: blur(5px);
+        }
+        
+        /* 新增的竞赛公告特殊样式 */
+        .competition-announcement {
+            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .competition-announcement::before {
+            background: linear-gradient(90deg, #2196f3, #2989d8);
+        }
+        
+        .competition-announcement .announcement-title {
+            color: #2196f3;
+        }
+        
+        .competition-announcement .announcement-title i {
+            color: #ff5722;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+        
+        .competition-info {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 10px;
+            padding: 15px;
+            position: relative;
+            border: 1px solid rgba(33, 150, 243, 0.2);
+        }
+        
+        .competition-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ff9800, #f57c00);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+            z-index: 2;
+        }
+        
+        .competition-highlight {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #ff9800;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        .competition-point {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 3px solid #4caf50;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        }
+        
+        .competition-conclusion {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            text-align: center;
+            font-weight: bold;
+            border: 1px dashed #ff9800;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .announcement-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .announcement-time {
+                margin-top: 10px;
+            }
+            
+            .competition-badge {
+                position: relative;
+                top: 0;
+                right: 0;
+                display: inline-block;
+                margin: 10px 0;
+            }
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .announcement {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+        
+        .announcement:nth-child(1) {
+            animation-delay: 0.1s;
+        }
+        
+        .announcement:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .announcement:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+        
+        .announcement:nth-child(4) {
+            animation-delay: 0.4s;
+        }
+        
+        /* 添加闪烁效果 */
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+        
+        .shimmer-effect {
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            background-repeat: no-repeat;
+            background-size: 1000px 100%;
+            animation: shimmer 2s infinite linear;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-bullhorn"></i> 班级公告栏</h1>
+            <p>及时获取最新班级通知与活动信息</p >
+        </header>
+        
+        <div class="date-display">
+            <div class="current-date" id="currentDate">正在加载日期...</div>
+            <div class="update-info">最后更新: <span id="lastUpdate">今天</span></div>
+        </div>
+        
+        <div class="announcement-container">
+            <!-- 最新公告 -->
+            <div class="announcement">
+                <div class="announcement-header">
+                    <div class="announcement-title"><i class="fas fa-exclamation-circle"></i> 重要通知：体测安排与冬令时调整</div>
+                    <div class="announcement-time">今天 09:30</div>
+                </div>
+                <div class="announcement-content">
+                    <p><span class="emoji">👥</span> @所有人 各位班主任老师：您好！</p >
+                    <ul>
+                        <li>2025年度国家学生体质健康测试定于2025年11月3日-6日（周一至周四）进行；</li>
+                        <li>现将体测家长告知书和免于体测申请表发送给您，辛苦您下周一让学生带回；</li>
+                        <li>家长告知书每人1份，免体申请表每班预发10份；</li>
+                        <li>家长告知书您收齐后，返还至北楼305于波处；</li>
+                        <li>免体申请表和免体证明，由申请免体学生交给任课体育教师。</li>
+                        <li>另外，辛苦您告知学生，因国网数据要求，每名学生【包含免体学生】都需要到形体房进行视力测试。</li>
+                        <li>因2025级期中考试，25数艺2、25信息4、25数艺4、25食品1挪到周二下午放学后进行；23财经3班挪到周三下午放学后进行。</li>
+                    </ul>
+                    <p>谢谢大家！<span class="emoji">🙏</span></p >
+                    
+                    <div class="highlight">
+                        <p><span class="emoji">⏰</span> @所有人 亲们，从明天（11月3日）开始执行冬令时。8点之前务必进班，交手机，查完考勤，8点10分上课。周一大课间升旗。</p >
+                        <p>其他大课间，回班开展班级活动，别乱跑。</p >
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 心理健康知识竞赛 -->
+            <div class="announcement competition-announcement">
+                <div class="announcement-header">
+                    <div class="announcement-title"><i class="fas fa-brain"></i> 心理健康知识竞赛通知</div>
+                    <div class="announcement-time">昨天 16:45</div>
+                </div>
+                <div class="competition-badge">知识竞赛</div>
+                <div class="announcement-content">
+                    <div class="info competition-info">
+                        <p><span class="emoji">🌹</span> 各位班主任您好：</p >
+                        <div class="competition-highlight">
+                            <p><span class="emoji">🌟</span> 10月是世界精神卫生宣传月，在老师和同学们的积极参与下已顺利完成各项心理活动，在良好的氛围下，我们将在【今天早课8:10-8:20开展心理健康知识竞赛】，为世界精神宣传月画上圆满的句号。</p >
+                        </div>
+                        <div class="competition-point">
+                            <p><span class="emoji">🌟</span> 8:05，德育处将进行广播校会，任老师将发布答题二维码，请您及时转发至班级群，没有手机的同学，可到德育处领取纸质版试卷。</p >
+                        </div>
+                        <div class="competition-point">
+                            <p><span class="emoji">🌟</span> 为保障竞赛的公平公正，切屏3次后将自动交卷，请同学们切勿过多切屏。</p >
+                        </div>
+                        <div class="competition-point">
+                            <p><span class="emoji">🌟</span> 答题时长为10分钟，希望同学们都能以饱满的热情踊跃参与，认真审题、仔细作答，在竞赛中收获成长与感悟。</p >
+                        </div>
+                        <div class="competition-conclusion">
+                            <p><span class="emoji">🌹</span> 预祝各位同学在本次心理健康知识竞赛中取得优异成绩 <span class="emoji">🌹</span></p >
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 语文小组分数 -->
+            <div class="announcement">
+                <div class="announcement-header">
+                    <div class="announcement-title"><i class="fas fa-chart-bar"></i> 语文小组分数公布</div>
+                    <div class="announcement-time">昨天 14:20</div>
+                </div>
+                <div class="announcement-content">
+                    <p><span class="emoji">👥</span> @所有人 语文小组分数，公布如下：</p >
+                    <ul>
+                        <li>一组: 20分</li>
+                        <li>二组: 26分</li>
+                        <li>三组: 26分</li>
+                        <li>四组: 25分</li>
+                        <li>五组: 12分</li>
+                    </ul>
+                    <div class="success">
+                        <p>其中二组和三组荣获并列第一名，10位组员免做第一单元练习册。其他同学于下周五上交练习册。</p >
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 大雾预警 -->
+            <div class="announcement">
+                <div class="announcement-header">
+                    <div class="announcement-title"><i class="fas fa-cloud-sun"></i> 大雾黄色预警工作提示</div>
+                    <div class="announcement-time">前天 18:30</div>
+                </div>
+                <div class="announcement-content">
+                    <p>同学们好！</p >
+                    <div class="warning">
+                        <p>市气象台已发布大雾黄色预警，预计今天夜间至30日早晨，我市大部分地区能见度小于1000米，东部和南部地区不足500米。雾天空气质量较差，请尽量减少户外活动，出门戴好口罩！</p >
+                    </div>
+                    <p><span class="emoji">🌹</span></p >
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>班级公告系统 &copy; 2025 | 设计：班级信息技术小组</p >
+            <p>本页面内容每日更新，请及时查看最新通知</p >
+        </footer>
+    </div>
+
+    <script>
+        // 创建背景粒子效果
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles';
+            document.body.appendChild(particlesContainer);
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机动画延迟和持续时间
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // 更新当前日期
+        function updateDate() {
+            const now = new Date();
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                weekday: 'long'
+            };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('zh-CN', options);
+            
+            // 设置最后更新时间
+            const updateTime = now.toLocaleTimeString('zh-CN', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+            document.getElementById('lastUpdate').textContent = `今天 ${updateTime}`;
+        }
+        
+        // 页面加载时更新日期并创建粒子效果
+        document.addEventListener('DOMContentLoaded', function() {
+            updateDate();
+            createParticles();
+        });
+        
+        // 模拟实时更新效果
+        setInterval(updateDate, 60000); // 每分钟更新一次
+    </script>
+</body>
+</html>
