@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>16:9全屏照片展示墙</title>
+    <script src="js/music-player.js"></script>
     <style>
         :root {
             --primary: #3498db;
@@ -24,7 +25,7 @@
         }
         
         body {
-            font-family: 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', 'PingFang SC', Arial, sans-serif;
             background: linear-gradient(135deg, #1e2228 0%, #14161a 100%);
             color: #f0f0f0;
             padding: 20px;
@@ -78,6 +79,107 @@
             gap: 25px;
             max-width: 1400px;
             margin: 0 auto;
+        }
+        
+        @media (max-width: 1200px) {
+            .photo-wall {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .photo-wall {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            header h1 {
+                font-size: 2.5rem;
+            }
+            
+            header p {
+                font-size: 1.1rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .back-button {
+                padding: 8px 15px;
+                top: 15px;
+                left: 15px;
+                font-size: 14px;
+            }
+            
+            .photo-wall {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+            
+            header {
+                padding: 30px 0;
+                margin-bottom: 20px;
+            }
+            
+            header h1 {
+                font-size: 2.2rem;
+            }
+            
+            header p {
+                font-size: 1rem;
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .back-button {
+                padding: 6px 12px;
+                top: 10px;
+                left: 10px;
+                font-size: 13px;
+            }
+            
+            .photo-wall {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
+            }
+            
+            header {
+                padding: 25px 0;
+            }
+            
+            header h1 {
+                font-size: 1.8rem;
+            }
+            
+            header p {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-wall {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+                gap: 10px;
+            }
+            
+            header h1 {
+                font-size: 1.6rem;
+            }
+            
+            .photo-number {
+                padding: 4px 8px;
+                font-size: 0.8rem;
+                top: 8px;
+                left: 8px;
+            }
         }
         
         .photo-item {
@@ -395,48 +497,23 @@
             }
         }
         
-        @media (max-width: 768px) {
-            .photo-wall {
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
-                padding: 0 10px;
-            }
-            
-            header h1 {
-                font-size: 2.2rem;
-            }
-            
-            header p {
-                font-size: 1rem;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            body {
-                padding: 10px;
-            }
-            
-            .photo-wall {
-                grid-template-columns: 1fr;
-            }
-        }
     </style>
 </head>
 <body>
-    <a href="2.html" class="back-button">
-        <img src="img/12.png" alt="班徽" class="class-badge" style="width: 24px; height: 24px;">
-        返回主页
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> 返回首页
     </a>
     
-    <header>
-        <h1>学生风采展示</h1>
-        <div class="header-decoration"></div>
-        <p>记录我们的青春时光，展现信息一班的精彩瞬间</p>
-    </header>
-    
-    <div class="photo-wall">
-        <div class="photo-item">
-            <div class="photo-container">
+    <div class="container">
+        <header>
+            <h1>学生风采展示</h1>
+            <div class="header-decoration"></div>
+            <p>记录我们的青春时光，展现信息一班的精彩瞬间</p>
+        </header>
+        
+        <div class="photo-wall">
+            <div class="photo-item">
+                <div class="photo-container">
               <img src="img/微信图片_20251105230522_258_58.jpg" />
                 <div class="overlay"></div>
             </div>

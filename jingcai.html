@@ -3,9 +3,10 @@
 <head>
     <meta charset="utf-8">
     <title>男生班级视频展示</title>
+    <script src="js/music-player.js"></script>
     <style>
         body {
-            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', Arial, sans-serif;
             background: linear-gradient(135deg, #1e2228 0%, #14161a 100%);
             margin: 0;
             padding: 20px;
@@ -248,6 +249,12 @@
         .video-container {
             padding: 20px;
             text-align: center;
+            position: relative;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: auto;
         }
         
         .video-placeholder {
@@ -266,6 +273,7 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
             background-color: #000;
             aspect-ratio: 16/9;
+            object-fit: cover;
         }
         
         .controls {
@@ -476,32 +484,130 @@
             }
         }
         
+        @media (max-width: 992px) {
+            .page-title {
+                font-size: 2.4rem;
+            }
+            
+            .container {
+                margin: 20px auto;
+            }
+            
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
-            .videos-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .video-input {
-                width: 100%;
-                margin-bottom: 15px;
-            }
-            
-            .load-btn {
-                width: 100%;
-                margin-left: 0;
-                margin-top: 10px;
+            .back-button {
+                padding: 8px 15px;
+                top: 15px;
+                left: 15px;
+                font-size: 14px;
             }
             
             .page-title {
                 font-size: 2rem;
+                margin: 60px 0 20px;
+            }
+            
+            .year-badge {
+                padding: 3px 10px;
+                font-size: 1rem;
+                margin-left: 10px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 20px;
+            }
+            
+            .video-item {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .back-button {
+                padding: 6px 12px;
+                top: 10px;
+                left: 10px;
+                font-size: 13px;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+                margin: 50px 0 15px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .video-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                padding: 15px;
+            }
+            
+            .video-item {
+                height: 180px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .page-title {
+                font-size: 1.6rem;
+                letter-spacing: 1px;
+            }
+            
+            .year-badge {
+                font-size: 0.9rem;
+                padding: 2px 8px;
+            }
+            
+            h1 {
+                font-size: 1.6rem;
+            }
+            
+            .video-item {
+                height: 150px;
+            }
+            
+            .video-title {
+                font-size: 1rem;
             }
         }
     </style>
 </head>
 <body>
-    <a href="2.html" class="back-button">返回主页</a>
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
     
-    <h1 class="page-title">2025 秋季运动会<span class="year-badge">NEW</span></h1>
+    <div class="header">
+        <h1 class="page-title">2025 秋季运动会<span class="year-badge">NEW</span></h1>
+    </div>
     
     <div class="container">
         <header>
@@ -521,8 +627,10 @@
                     三千米长跑精彩瞬间 <span class="badge">必看</span>
                 </div>
                 <div class="video-container">
-                    <div class="video-placeholder"></div>
-                    <video src="vodie/微信视频2025-11-06_205921_701.mp4" controls></video>
+                    <div class="video-placeholder" style="display:none;">视频加载中...</div>
+                    <video controls playsinline webkit-playsinline preload="metadata">
+                        您的浏览器不支持视频播放功能，请升级浏览器。
+                    </video>
                 </div>
             </div>
             
@@ -531,8 +639,10 @@
                      展示神力<span class="badge">热门</span>
                 </div>
                 <div class="video-container">
-                    <div class="video-placeholder"></div>
-                    <video src="vodie/微信视频2025-11-06_203837_817.mp4" controls></video>
+                    <div class="video-placeholder" style="display:none;">视频加载中...</div>
+                    <video controls playsinline webkit-playsinline preload="metadata">
+                        您的浏览器不支持视频播放功能，请升级浏览器。
+                    </video>
                 </div>
             </div>
             
@@ -541,8 +651,10 @@
                     4x100米接力赛 <span class="badge">经典</span>
                 </div>
                 <div class="video-container">
-                    <div class="video-placeholder"></div>
-                    <video src="vodie/微信视频2025-11-06_205915_927.mp4" controls></video>
+                    <div class="video-placeholder" style="display:none;">视频加载中...</div>
+                    <video controls playsinline webkit-playsinline preload="metadata">
+                        您的浏览器不支持视频播放功能，请升级浏览器。
+                    </video>
                 </div>
             </div>
             
@@ -551,8 +663,10 @@
                     班级入场式视频<span class="badge">纪念</span>
                 </div>
                 <div class="video-container">
-                    <div class="video-placeholder"></div>
-                    <video src="vodie/微信视频2025-11-06_214413_103.mp4" controls></video>
+                    <div class="video-placeholder" style="display:none;">视频加载中...</div>
+                    <video controls playsinline webkit-playsinline preload="metadata">
+                        您的浏览器不支持视频播放功能，请升级浏览器。
+                    </video>
                 </div>
             </div>
         </div>
@@ -861,6 +975,44 @@
             });
         }
         
+        function initializeVideos() {
+            const videos = [
+                { src: "video/微信视频2025-11-06_205921_701.mp4", title: "三千米长跑精彩瞬间" },
+                { src: "video/微信视频2025-11-06_203837_817.mp4", title: "展示神力" },
+                { src: "video/微信视频2025-11-06_205915_927.mp4", title: "4x100米接力赛" },
+                { src: "video/微信视频2025-11-06_214413_103.mp4", title: "班级入场式视频" }
+            ];
+            
+            const videoCards = document.querySelectorAll('.video-card');
+            
+            videoCards.forEach((card, index) => {
+                if (index < videos.length) {
+                    const video = card.querySelector('video');
+                    const placeholder = card.querySelector('.video-placeholder');
+                    
+                    // 显示加载提示
+                    placeholder.style.display = 'block';
+                    video.style.display = 'none';
+                    
+                    // 设置视频源
+                    video.src = videos[index].src;
+                    
+                    // 添加加载事件
+                    video.addEventListener('loadeddata', function() {
+                        placeholder.style.display = 'none';
+                        video.style.display = 'block';
+                        console.log(`${videos[index].title} 加载成功`);
+                    });
+                    
+                    // 添加错误事件
+                    video.addEventListener('error', function(e) {
+                        placeholder.innerHTML = `<p>${videos[index].title} 加载失败</p>`;
+                        console.error(`${videos[index].title} 加载失败:`, e);
+                    });
+                }
+            });
+        }
+        
         function addVideo() {
             const videoUrl = document.getElementById('videoUrl').value;
             
@@ -880,7 +1032,8 @@
                     视频 ${videoCount} <span class="badge">新</span>
                 </div>
                 <div class="video-container">
-                    <video controls>
+                    <div class="video-placeholder" style="display:block;">视频加载中...</div>
+                    <video controls playsinline webkit-playsinline preload="metadata" style="display:none;">
                         您的浏览器不支持视频播放功能，请升级浏览器。
                     </video>
                 </div>
@@ -889,8 +1042,27 @@
             // 添加到容器中
             videosContainer.appendChild(videoCard);
             
-            // 设置视频源
+            // 获取视频元素和加载提示
             const videoElement = videoCard.querySelector('video');
+            const placeholder = videoCard.querySelector('.video-placeholder');
+            
+            // 添加事件监听器以处理播放问题
+            videoElement.addEventListener('loadeddata', function() {
+                console.log('视频数据已加载');
+                // 隐藏加载提示并显示视频
+                placeholder.style.display = 'none';
+                this.style.display = 'block';
+                this.style.backgroundColor = 'transparent';
+            });
+            
+            videoElement.addEventListener('error', function(e) {
+                console.error('视频加载错误:', e);
+                // 隐藏加载提示并显示错误信息
+                placeholder.innerHTML = '<p>视频加载失败，请检查链接是否正确</p>';
+                placeholder.style.color = '#e74c3c';
+            });
+            
+            // 设置视频源并加载
             videoElement.src = videoUrl;
             videoElement.load();
             
@@ -902,6 +1074,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             createCursorTrail();
+            initializeVideos();
         });
     </script>
 </body>

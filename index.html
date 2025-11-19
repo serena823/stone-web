@@ -33,7 +33,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Microsoft YaHei', '微软雅黑', 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', '微软雅黑', 'PingFang SC', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         }
 
         body {
@@ -282,7 +282,8 @@
                 opacity: 0;
             }
         }
-        
+        /* 响应式设计 */
+        @
         /* 光晕效果 */
         .cursor-glow {
             position: fixed;
@@ -316,6 +317,7 @@
             border: 2px solid var(--accent);
             box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
             animation: pulse 3s infinite;
+            display: inline-block; /* 确保图片正确显示 */
         }
         
         .class-badge-large {
@@ -326,6 +328,8 @@
             border: 3px solid var(--accent);
             box-shadow: 0 0 20px rgba(52, 152, 219, 0.7);
             animation: float 6s infinite ease-in-out;
+            display: block; /* 确保图片正确显示 */
+            margin: 0 auto 20px auto; /* 居中显示 */
         }
         
         /* 卡片中的班徽 */
@@ -339,6 +343,7 @@
             position: absolute;
             top: -30px;
             right: 20px;
+            display: block; /* 确保图片正确显示 */
         }
         
         /* 页脚中的班徽 */
@@ -351,6 +356,7 @@
             box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
             vertical-align: middle;
             margin: 0 10px;
+            display: inline-block; /* 确保图片正确显示 */
         }
         
         /* 波浪效果 */
@@ -764,7 +770,102 @@
             overflow: hidden;
             z-index: 1;
         }
-
+        
+        /* 音乐播放器样式 */
+        .music-player {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 10000;
+        }
+        
+        .vinyl {
+            width: 80px;
+            height: 80px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .vinyl:hover {
+            transform: scale(1.05);
+        }
+        
+        .vinyl-record {
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle, #2c3e50 0%, #1a1a1a 70%, #0d0d0d 100%),
+                repeating-radial-gradient(
+                    circle at center,
+                    #34495e 0px,
+                    #34495e 1px,
+                    transparent 1px,
+                    transparent 10px
+            );
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.5),
+                inset 0 0 20px rgba(0, 0, 0, 0.8);
+            animation: rotate 20s linear infinite;
+            animation-play-state: running;
+        }
+        
+        .vinyl-hole {
+            width: 20px;
+            height: 20px;
+            background: #0d0d0d;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 2;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+        }
+        
+        .vinyl-label {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1;
+        }
+        
+        .vinyl-label i {
+            animation: pulse 1.5s infinite;
+        }
+        
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        .paused .vinyl-record {
+            animation-play-state: paused;
+        }
         .floating-element {
             position: absolute;
             background-color: rgba(255, 255, 255, 0.1);
@@ -903,6 +1004,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: white;
             color: white;
             font-size: 1.5rem;
             font-weight: 700;
@@ -1172,6 +1274,20 @@
         }
 
         /* 响应式设计 */
+        @media (max-width: 1200px) {
+            .hero h2 {
+                font-size: 3rem;
+            }
+            
+            .about-content {
+                padding: 60px 20px;
+            }
+            
+            .photo-item {
+                height: 300px;
+            }
+        }
+
         @media (max-width: 992px) {
             .about-content {
                 flex-direction: column;
@@ -1198,6 +1314,10 @@
             .contest-layout {
                 grid-template-columns: 1fr;
             }
+            
+            .contest-awards-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
         }
 
         @media (max-width: 768px) {
@@ -1220,6 +1340,206 @@
             .photo-slider {
                 height: 40vh;
             }
+            
+            .about-content {
+                padding: 40px 15px;
+            }
+            
+            .photo-item {
+                height: 250px;
+            }
+            
+            .contest-awards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                gap: 15px;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 80%;
+                max-width: 250px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h2 {
+                font-size: 1.7rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.7rem;
+            }
+            
+            .photo-slider {
+                height: 35vh;
+            }
+            
+            .about-content {
+                padding: 30px 10px;
+            }
+            
+            .photo-item {
+                height: 200px;
+            }
+            
+            .stats-item h3 {
+                font-size: 1.8rem;
+            }
+            
+            .stats-item p {
+                font-size: 0.9rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+            
+            .hero-buttons {
+                gap: 10px;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 0.9rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.5rem;
+            }
+            
+            .photo-item {
+                height: 180px;
+            }
+        }
+        
+        /* 添加鼠标跟随效果相关样式 */
+        .mouse-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(52, 152, 219, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+        }
+        
+        .mouse-follower-inner {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(52, 152, 219, 0.8);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+        }
+        
+        .mouse-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.6);
+            pointer-events: none;
+            z-index: 9998;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
+        }
+        
+        /* 按钮样式 */
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            border: none;
+            cursor: pointer;
+            text-align: center;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a);
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: linear-gradient(135deg, #1a1a1a, #2c3e50);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .btn i {
+            margin-right: 8px;
+        }
+        
+        #music-prompt {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(44, 62, 80, 0.9);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            z-index: 10001;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            font-size: 14px;
+            max-width: 300px;
+        }
+        
+        #music-prompt button {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            float: right;
+        }
+        
+        #music-prompt p {
+            margin: 0 0 10px 0;
+        }
+        
+        #music-prompt::after {
+            content: "";
+            display: block;
+            clear: both;
         }
     </style>
 </head>
@@ -1238,11 +1558,12 @@
                     </div>
                     <ul class="nav-links">
                         <li><a href="#home">首页</a></li>
-                        <li><a href="#about">班级介绍</a></li>
+                        <li><a href="#class-intro">班级介绍</a></li>
                         <li><a href="#teachers">班主任团队</a></li>
                         <li><a href="2.html">班级相册</a></li>
                         <li><a href="#awards">获奖成果</a></li>
                         <li><a href="wjcg.html">班级回忆</a></li>
+                        <li><a href="guanghui.html">光辉风采</a></li>
                         <li><a href="#contact">联系我们</a></li>
                     </ul>
                 </nav>
@@ -1257,8 +1578,17 @@
                 </div>
                 <div class="hero-content">
                     <img src="img/12.png" alt="班徽" class="class-badge-large">
-                    <h2>信息一班 · 光辉风采</h2>
+                    <h2>青年一班 · 光辉风采</h2>
                     <p>29位朝气蓬勃的男生，在王凤老师和苏秋月老师的带领下，<br>在运动场上挥洒汗水，在班级团体奖项中屡创佳绩</p>
+                    <div class="hero-buttons">
+                        <a href="guanghui.html" class="btn btn-primary">
+                            <i class="fas fa-users"></i> 光辉风采
+                        </a>
+                        <a href="#class-intro" class="btn btn-secondary">
+                            <i class="fas fa-info-circle"></i> 了解更多
+                        </a>
+                    </div>
+                </div>
                 </div>
             </section>
         </div>
@@ -1269,7 +1599,7 @@
                 <!-- 第一行：班级介绍和班主任团队 -->
                 <div class="contest-layout">
                     <!-- 班级介绍卡片 -->
-                    <div class="contest-card">
+                    <div class="contest-card" id="class-intro">
                         <div class="contest-card-header">
                             <h3>班级介绍</h3>
                             <img src="img/12.png" alt="班徽" class="card-badge">
@@ -1533,6 +1863,140 @@
     </div>
     
     <script>
+        // 全局音乐播放控制
+        class GlobalMusicPlayer {
+            constructor() {
+                this.audio = null;
+                this.vinyl = null;
+                this.isPlaying = false;
+                this.init();
+            }
+
+            init() {
+                // 创建音频元素
+                this.audio = new Audio();
+                this.audio.loop = true;
+                this.audio.src = '7.mp3';
+                
+                // 创建黑胶唱片控件
+                this.createPlayerUI();
+                
+                // 尝试自动播放
+                this.tryAutoPlay();
+                
+                // 监听用户交互以启动播放
+                const tryPlay = () => {
+                    this.tryPlay();
+                };
+                
+                document.body.addEventListener('click', tryPlay, { once: true });
+                document.body.addEventListener('touchstart', tryPlay, { once: true });
+                
+                // 监听页面可见性变化
+                document.addEventListener('visibilitychange', () => {
+                    if (!document.hidden && this.isPlaying) {
+                        this.play();
+                    }
+                });
+            }
+            
+            createPlayerUI() {
+                // 创建音乐播放器容器
+                const playerContainer = document.createElement('div');
+                playerContainer.className = 'music-player';
+                playerContainer.innerHTML = `
+                    <div class="vinyl" id="global-vinyl">
+                        <div class="vinyl-record">
+                            <div class="vinyl-hole"></div>
+                            <div class="vinyl-label">
+                                <i class="fas fa-music"></i>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                
+                document.body.appendChild(playerContainer);
+                
+                // 绑定事件
+                this.vinyl = document.getElementById('global-vinyl');
+                this.vinyl.addEventListener('click', () => {
+                    this.togglePlay();
+                });
+            }
+            
+            tryAutoPlay() {
+                // 延迟尝试自动播放
+                setTimeout(() => {
+                    this.tryPlay();
+                }, 1000);
+            }
+            
+            tryPlay() {
+                // 如果已经在播放，则不处理
+                if (this.isPlaying) return;
+                
+                this.play();
+            }
+            
+            play() {
+                // 先移除可能存在的提示
+                const prompt = document.getElementById('music-prompt');
+                if (prompt) {
+                    prompt.remove();
+                }
+                
+                this.audio.play().then(() => {
+                    this.isPlaying = true;
+                    if (this.vinyl) {
+                        this.vinyl.classList.remove('paused');
+                    }
+                }).catch(error => {
+                    console.log('播放失败:', error);
+                    // 显示提示让用户手动启动播放
+                    this.showPlayPrompt();
+                });
+            }
+            
+            pause() {
+                this.audio.pause();
+                this.isPlaying = false;
+                if (this.vinyl) {
+                    this.vinyl.classList.add('paused');
+                }
+            }
+            
+            togglePlay() {
+                if (this.isPlaying) {
+                    this.pause();
+                } else {
+                    this.play();
+                }
+            }
+            
+            showPlayPrompt() {
+                // 如果提示已经存在，则不重复创建
+                if (document.getElementById('music-prompt')) return;
+                
+                // 创建播放提示
+                const prompt = document.createElement('div');
+                prompt.id = 'music-prompt';
+                prompt.innerHTML = `
+                    <p>
+                        <i class="fas fa-info-circle"></i> 点击页面任意位置或下方唱片图标播放背景音乐
+                    </p>
+                    <button onclick="this.parentElement.remove()">知道了</button>
+                `;
+                document.body.appendChild(prompt);
+                
+                // 5秒后自动消失
+                setTimeout(() => {
+                    if (prompt.parentElement) {
+                        prompt.remove();
+                    }
+                }, 5000);
+            }
+        }
+
         // 创建背景粒子效果
         function createParticles() {
             const particlesContainer = document.createElement('div');
@@ -2087,6 +2551,9 @@
         
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 初始化音乐播放器
+            window.globalMusicPlayer = new GlobalMusicPlayer();
+            
             createParticles();
             createCursorTrail();
             animateOnScroll();

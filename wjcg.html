@@ -5,17 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>往事回忆相册</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="js/music-player.js"></script>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Microsoft YaHei', 'SimSun', serif;
+            font-family: 'Noto Sans SC', 'Microsoft YaHei', 'SimSun', serif;
         }
         
         body {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            color: #0d47a1;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2c3e50 100%);
+            color: #ecf0f1;
             padding: 20px;
             min-height: 100vh;
             position: relative;
@@ -27,12 +28,12 @@
             position: fixed;
             top: 20px;
             left: 20px;
-            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
             padding: 10px 20px;
             border-radius: 30px;
             text-decoration: none;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
             z-index: 1000;
             transition: all 0.3s ease;
             font-weight: bold;
@@ -40,8 +41,8 @@
         
         .back-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(135deg, #1976d2, #0d47a1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
         }
         
         body::before {
@@ -51,8 +52,8 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 20%),
-                        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.4) 0%, transparent 20%);
+            background: radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                        radial-gradient(circle at 90% 80%, rgba(52, 152, 219, 0.1) 0%, transparent 20%);
             z-index: -1;
         }
         
@@ -69,7 +70,10 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(33, 150, 243, 0.2);
+            background: rgba(52, 152, 219, 0.5);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.8),
+                        0 0 20px rgba(52, 152, 219, 0.6),
+                        0 0 30px rgba(52, 152, 219, 0.4);
             animation: float 15s infinite linear;
         }
         
@@ -79,15 +83,52 @@
                 opacity: 0;
             }
             10% {
-                opacity: 0.5;
+                opacity: 0.8;
             }
             90% {
-                opacity: 0.3;
+                opacity: 0.6;
             }
             100% {
                 transform: translateY(-1000%) translateX(1000%) rotate(720deg);
                 opacity: 0;
             }
+        }
+        
+        .mouse-follower {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(52, 152, 219, 0.8);
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            transition: all 0.1s ease;
+            mix-blend-mode: difference;
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+        }
+        
+        .mouse-follower-inner {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: rgba(52, 152, 219, 0.8);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+        }
+        
+        .mouse-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.6);
+            pointer-events: none;
+            z-index: 9998;
+            box-shadow: 0 0 8px rgba(52, 152, 219, 0.8);
         }
         
         .container {
@@ -101,12 +142,12 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 30px;
-            border-bottom: 2px solid rgba(33, 150, 243, 0.3);
+            border-bottom: 2px solid rgba(52, 152, 219, 0.3);
             position: relative;
             overflow: hidden;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(44, 62, 80, 0.95) 100%);
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
         }
         
@@ -117,14 +158,14 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, #2196f3, #64b5f6, #2196f3);
+            background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
         }
         
         h1 {
             font-size: 3rem;
-            color: #0d47a1;
+            color: #ecf0f1;
             margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             letter-spacing: 3px;
             position: relative;
             display: inline-block;
@@ -138,13 +179,13 @@
             transform: translateX(-50%);
             width: 100px;
             height: 3px;
-            background: linear-gradient(90deg, transparent, #2196f3, transparent);
+            background: linear-gradient(90deg, transparent, #3498db, transparent);
             border-radius: 3px;
         }
         
         .subtitle {
             font-size: 1.3rem;
-            color: #1565c0;
+            color: #bdc3c7;
             font-style: italic;
             position: relative;
         }
@@ -159,14 +200,14 @@
         .memory-item {
             display: flex;
             align-items: center;
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(44, 62, 80, 0.95) 100%);
             border-radius: 15px;
             padding: 25px;
-            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(33, 150, 243, 0.2);
+            border: 1px solid rgba(52, 152, 219, 0.3);
         }
         
         .memory-item::before {
@@ -176,18 +217,18 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, #2196f3, #64b5f6, #2196f3);
+            background: linear-gradient(90deg, #2c3e50, #3498db, #2c3e50);
         }
         
         .memory-item:hover {
             transform: translateY(-10px) scale(1.01);
-            box-shadow: 0 15px 40px rgba(13, 71, 161, 0.2);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
         }
         
         .photo-container {
             width: 220px;
             height: 160px;
-            background: linear-gradient(135deg, #f5f5f5 0%, #e3f2fd 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -195,9 +236,9 @@
             overflow: hidden;
             flex-shrink: 0;
             border-radius: 10px;
-            box-shadow: 0 8px 20px rgba(13, 71, 161, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
             position: relative;
-            border: 1px solid rgba(33, 150, 243, 0.3);
+            border: 1px solid rgba(52, 152, 219, 0.3);
             transition: all 0.3s ease;
         }
         
@@ -208,7 +249,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.3) 0%, transparent 50%);
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.2) 0%, transparent 50%);
             z-index: 1;
         }
         
@@ -223,7 +264,7 @@
         
         .memory-item:hover .photo-container {
             transform: scale(1.05);
-            box-shadow: 0 12px 25px rgba(13, 71, 161, 0.15);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.35);
         }
         
         .memory-item:hover .photo-container img {
@@ -237,9 +278,9 @@
         
         .memory-title {
             font-size: 1.6rem;
-            color: #0d47a1;
+            color: #ecf0f1;
             margin-bottom: 15px;
-            border-bottom: 1px dotted rgba(33, 150, 243, 0.5);
+            border-bottom: 1px dotted rgba(52, 152, 219, 0.5);
             padding-bottom: 10px;
             position: relative;
         }
@@ -249,43 +290,43 @@
             font-family: "Font Awesome 5 Free";
             font-weight: 900;
             margin-right: 10px;
-            color: #2196f3;
+            color: #3498db;
         }
         
         .memory-desc {
             font-size: 1.1rem;
-            color: #1565c0;
+            color: #bdc3c7;
             line-height: 1.7;
             margin-bottom: 15px;
         }
         
         .memory-date {
             font-size: 1rem;
-            color: #2196f3;
+            color: #3498db;
             margin-top: 10px;
             font-style: italic;
             display: inline-block;
-            background: rgba(33, 150, 243, 0.1);
+            background: rgba(52, 152, 219, 0.1);
             padding: 5px 15px;
             border-radius: 20px;
         }
         
         .quote-section {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(44, 62, 80, 0.95) 100%);
             padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(13, 71, 161, 0.1);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             margin-top: 40px;
             line-height: 1.8;
             position: relative;
-            border-left: 5px solid #2196f3;
-            border: 1px solid rgba(33, 150, 243, 0.2);
+            border-left: 5px solid #3498db;
+            border: 1px solid rgba(52, 152, 219, 0.3);
         }
         
         .quote-section::before {
             content: """;
             font-size: 100px;
-            color: #64b5f6;
+            color: #3498db;
             position: absolute;
             top: 10px;
             left: 15px;
@@ -296,7 +337,7 @@
         .quote-section::after {
             content: """;
             font-size: 100px;
-            color: #64b5f6;
+            color: #3498db;
             position: absolute;
             bottom: -40px;
             right: 20px;
@@ -309,7 +350,7 @@
             top: 20px;
             left: 20px;
             font-size: 2rem;
-            color: #2196f3;
+            color: #3498db;
             opacity: 0.3;
         }
         
@@ -317,12 +358,12 @@
             text-align: center;
             margin-top: 50px;
             padding: 30px;
-            color: #1565c0;
+            color: #bdc3c7;
             font-size: 1rem;
-            border-top: 2px solid rgba(33, 150, 243, 0.3);
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(227, 242, 253, 0.95) 100%);
+            border-top: 2px solid rgba(52, 152, 219, 0.3);
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(44, 62, 80, 0.95) 100%);
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(13, 71, 161, 0.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
         
         .footer-content {
@@ -333,7 +374,7 @@
         }
         
         .heart-icon {
-            color: #42a5f5;
+            color: #3498db;
             animation: heartbeat 1.5s infinite;
         }
         
@@ -346,33 +387,130 @@
             100% { transform: scale(1); }
         }
         
-        @media (max-width: 768px) {
-            .memory-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .photo-container {
-                width: 100%;
-                height: 220px;
-                margin-right: 0;
-                margin-bottom: 20px;
+        @media (max-width: 992px) {
+            .container {
+                max-width: 90%;
             }
             
             h1 {
-                font-size: 2.3rem;
+                font-size: 2.5rem;
+            }
+            
+            .memory-content {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            
+            .back-button {
+                padding: 8px 15px;
+                top: 15px;
+                left: 15px;
+                font-size: 14px;
+            }
+            
+            header {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 2.2rem;
             }
             
             .subtitle {
                 font-size: 1.1rem;
             }
             
-            .memory-title {
-                font-size: 1.4rem;
+            .memory-item {
+                flex-direction: column;
             }
             
-            .quote-section {
-                padding: 25px 20px;
+            .memory-image {
+                width: 100%;
+                height: 250px;
+            }
+            
+            .memory-content {
+                width: 100%;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            body {
+                padding: 10px;
+            }
+            
+            .back-button {
+                padding: 6px 12px;
+                top: 10px;
+                left: 10px;
+                font-size: 13px;
+            }
+            
+            header {
+                padding: 20px 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+                letter-spacing: 2px;
+            }
+            
+            .subtitle {
+                font-size: 1rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            .memory-image {
+                height: 200px;
+            }
+            
+            .memory-content {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .back-button {
+                padding: 5px 10px;
+                font-size: 12px;
+            }
+            
+            header {
+                padding: 15px;
+            }
+            
+            h1 {
+                font-size: 1.8rem;
+                letter-spacing: 1px;
+            }
+            
+            .subtitle {
+                font-size: 0.9rem;
+            }
+            
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            .memory-image {
+                height: 180px;
+            }
+            
+            .memory-title {
+                font-size: 1.1rem;
+            }
+            
+            .memory-description {
+                font-size: 0.9rem;
             }
         }
         
@@ -424,17 +562,19 @@
         
         /* 毛玻璃效果 */
         .glass-effect {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(30, 30, 30, 0.3);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(52, 152, 219, 0.2);
         }
     </style>
 </head>
 <body>
-    <a href="2.html" class="back-button">返回主页</a>
+    <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> 返回首页
+    </a>
     
-    <div class="particles" id="particles"></div>
+    <div class="container">
     
     <div class="container">
         <header>
@@ -519,12 +659,12 @@
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 50; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
                 // 随机大小
-                const size = Math.random() * 12 + 3;
+                const size = Math.random() * 8 + 2;
                 particle.style.width = `${size}px`;
                 particle.style.height = `${size}px`;
                 
@@ -534,15 +674,80 @@
                 
                 // 随机动画延迟和持续时间
                 particle.style.animationDelay = `${Math.random() * 10}s`;
-                particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
                 
                 particlesContainer.appendChild(particle);
             }
         }
         
+        // 创建鼠标跟随效果
+        function createMouseFollower() {
+            const mouseFollower = document.getElementById('mouseFollower');
+            let mouseX = 0;
+            let mouseY = 0;
+            let followerX = 0;
+            let followerY = 0;
+            let trailElements = [];
+            let trailCount = 15;
+            
+            // 初始化轨迹元素
+            for (let i = 0; i < trailCount; i++) {
+                const trail = document.createElement('div');
+                trail.className = 'mouse-trail';
+                trail.style.opacity = 0;
+                document.body.appendChild(trail);
+                trailElements.push({
+                    element: trail,
+                    x: 0,
+                    y: 0,
+                    size: 6 - (i * 0.3),
+                    opacity: 0
+                });
+            }
+            
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+            });
+            
+            function animateFollower() {
+                // 跟随鼠标动画
+                followerX += (mouseX - followerX) / 5;
+                followerY += (mouseY - followerY) / 5;
+                
+                mouseFollower.style.left = followerX + 'px';
+                mouseFollower.style.top = followerY + 'px';
+                
+                // 更新轨迹
+                for (let i = trailElements.length - 1; i > 0; i--) {
+                    trailElements[i].x = trailElements[i-1].x;
+                    trailElements[i].y = trailElements[i-1].y;
+                }
+                
+                trailElements[0].x = followerX;
+                trailElements[0].y = followerY;
+                
+                // 应用轨迹样式
+                trailElements.forEach((trail, index) => {
+                    const delay = index * 20;
+                    setTimeout(() => {
+                        trail.element.style.left = trail.x + 'px';
+                        trail.element.style.top = trail.y + 'px';
+                        trail.element.style.opacity = 0.8 - (index * 0.05);
+                        trail.element.style.transform = `scale(${trail.size / 6})`;
+                    }, delay);
+                });
+                
+                requestAnimationFrame(animateFollower);
+            }
+            
+            animateFollower();
+        }
+        
         // 页面加载完成后执行
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            createMouseFollower();
         });
     </script>
 </body>
