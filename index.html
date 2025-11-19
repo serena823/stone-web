@@ -7,12 +7,26 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #3498db;
+            --primary: #2980b9;
             --secondary: #2c3e50;
-            --accent: #e74c3c;
+            --accent: #3498db;
             --light: #ecf0f1;
             --dark: #2c3e50;
             --transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+            --dark-bg: #1a1a1a;
+            --darker-bg: #0d0d0d;
+            --card-bg: #252525;
+            --text-light: #f0f0f0;
+            --text-muted: #b0b0b0;
+            --gray-100: #f8f9fa;
+            --gray-200: #e9ecef;
+            --gray-300: #dee2e6;
+            --gray-400: #ced4da;
+            --gray-500: #adb5bd;
+            --gray-600: #6c757d;
+            --gray-700: #495057;
+            --gray-800: #343a40;
+            --gray-900: #212529;
         }
 
         * {
@@ -23,8 +37,13 @@
         }
 
         body {
-            background: linear-gradient(135deg, #1e5799 0%, #2989d8 100%);
-            color: #333;
+            background: 
+                linear-gradient(rgba(30, 30, 40, 0.95), rgba(20, 20, 30, 0.95)),
+                url('img/微信图片_20251105220240_233_58.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: var(--text-light);
             overflow-x: hidden;
             line-height: 1.6;
             min-height: 100vh;
@@ -38,13 +57,15 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
-                        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.05) 0%, transparent 20%),
+                linear-gradient(135deg, rgba(44, 62, 80, 0.1) 0%, rgba(26, 26, 26, 0.1) 100%);
             z-index: -1;
         }
         
         .particles {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -56,7 +77,7 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(52, 152, 219, 0.5);
             animation: float 15s infinite linear;
         }
         
@@ -76,7 +97,293 @@
                 opacity: 0;
             }
         }
+        
+        /* 增强的背景效果 */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, transparent 70%);
+            animation: float 25s infinite linear;
+        }
+        
+        .bg-element.square {
+            border-radius: 0;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.05) 0%, transparent 50%);
+            transform: rotate(45deg);
+        }
+        
+        .bg-element.triangle {
+            width: 0;
+            height: 0;
+            background: transparent;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid rgba(52, 152, 219, 0.1);
+            border-radius: 0;
+            transform: rotate(0deg);
+        }
+        
+        /* 复杂的鼠标轨迹效果 */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: trailFade 0.5s forwards;
+        }
 
+        @keyframes trailFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2);
+            }
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, border-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower.expand {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: rgba(41, 128, 185, 0.8);
+        }
+        
+        /* 复杂轨迹元素 */
+        .complex-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            transform: translate(-50%, -50%);
+        }
+        
+        .trail-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.6);
+            transform: translate(-50%, -50%);
+            animation: dotPulse 1s infinite alternate;
+        }
+        
+        .trail-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(41, 128, 185, 0.7);
+            transform: translate(-50%, -50%);
+            animation: ringExpand 1.5s forwards;
+        }
+        
+        .trail-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(236, 240, 241, 0.8);
+            transform: translate(-50%, -50%);
+            animation: particleFloat 2s forwards;
+        }
+        
+        .trail-square {
+            position: absolute;
+            background: rgba(52, 152, 219, 0.4);
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: squareRotate 3s forwards;
+        }
+        
+        .trail-triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            background: transparent;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid rgba(41, 128, 185, 0.6);
+            transform: translate(-50%, -50%);
+            animation: triangleFloat 2s forwards;
+        }
+        
+        @keyframes dotPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes ringExpand {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 1;
+            }
+            100% {
+                width: 60px;
+                height: 60px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, 0px)));
+                opacity: 0;
+            }
+        }
+        
+        @keyframes squareRotate {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes triangleFloat {
+            0% {
+                transform: translate(-50%, -50%) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(var(--y, -100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 光晕效果 */
+        .cursor-glow {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.3) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9996;
+            transform: translate(-50%, -50%);
+            animation: glowPulse 2s infinite alternate;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+        
+        /* 班徽样式 */
+        .class-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+            animation: pulse 3s infinite;
+        }
+        
+        .class-badge-large {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--accent);
+            box-shadow: 0 0 20px rgba(52, 152, 219, 0.7);
+            animation: float 6s infinite ease-in-out;
+        }
+        
+        /* 卡片中的班徽 */
+        .card-badge {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+            position: absolute;
+            top: -30px;
+            right: 20px;
+        }
+        
+        /* 页脚中的班徽 */
+        .footer-badge {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.5);
+            vertical-align: middle;
+            margin: 0 10px;
+        }
+        
+        /* 波浪效果 */
+        .wave-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .wave {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            transform: translate(-50%, -50%) scale(0);
+            animation: wavePulse 3s infinite;
+        }
+        
+        @keyframes wavePulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
+        }
+        
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -84,22 +391,256 @@
             position: relative;
         }
 
+        /* 上中下布局样式 */
+        .page-wrapper {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .header-section {
+            flex: 0 0 auto;
+        }
+
+        .content-wrapper {
+            flex: 1 0 auto;
+        }
+
+        .top-section {
+            width: 100%;
+            padding: 80px 0 0 0; /* 为固定导航栏留出空间 */
+        }
+
+        .center-section {
+            width: 100%;
+            padding: 20px 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .bottom-section {
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .footer-section {
+            flex: 0 0 auto;
+        }
+
+        /* 参赛级布局样式 */
+        .contest-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+            margin: 0 auto;
+            max-width: 1200px;
+            padding: 0 15px;
+        }
+
+        .contest-card {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            height: 100%;
+            backdrop-filter: blur(10px);
+        }
+
+        .contest-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+
+        .contest-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .contest-card-header {
+            padding: 20px;
+            background: 
+                linear-gradient(135deg, var(--primary) 0%, #2980b9 100%),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(255, 255, 255, 0.1) 0px,
+                    rgba(255, 255, 255, 0.1) 10px,
+                    transparent 10px,
+                    transparent 20px
+                );
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contest-card-header::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(255, 255, 255, 0.2) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.1) 0%, transparent 30%);
+        }
+
+        .contest-card-header h3 {
+            position: relative;
+            z-index: 2;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .contest-card-body {
+            padding: 15px;
+        }
+
+        .contest-card-title {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .contest-card-content {
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .contest-stats {
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .contest-stat-item {
+            flex: 1;
+        }
+
+        .contest-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            display: block;
+        }
+
+        .contest-stat-label {
+            font-size: 0.8rem;
+            color: var(--gray-400);
+        }
+
+        .contest-awards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+        }
+
+        .contest-award-card {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .contest-award-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+
+        .contest-award-card::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+
+        .contest-award-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        }
+
+        .contest-award-icon {
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary) 0%, #2980b9 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .contest-award-content {
+            padding: 15px;
+        }
+
+        .contest-award-title {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-bottom: 8px;
+        }
+
+        .contest-award-description {
+            color: var(--text-muted);
+            margin-bottom: 10px;
+            line-height: 1.5;
+            font-size: 0.9rem;
+        }
+
+        .contest-award-date {
+            font-size: 0.75rem;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-block;
+            background: rgba(41, 128, 185, 0.1);
+            padding: 3px 8px;
+            border-radius: 15px;
+        }
+
         /* 导航栏样式 */
         header {
-            background: rgba(255, 255, 255, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            background: rgba(33, 37, 41, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
             transition: var(--transition);
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-scrolled {
-            background: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+            background: rgba(44, 62, 80, 0.95);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6);
             padding: 5px 0;
         }
 
@@ -130,10 +671,10 @@
         }
 
         .logo h1 {
-            color: white;
+            color: var(--text-light);
             font-size: 24px;
             font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
         }
 
         .nav-links {
@@ -148,12 +689,12 @@
 
         .nav-links a {
             text-decoration: none;
-            color: white;
+            color: var(--text-light);
             font-weight: 600;
             font-size: 16px;
             transition: var(--transition);
             padding: 5px 0;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
         }
 
         .nav-links a:after {
@@ -163,13 +704,13 @@
             height: 3px;
             bottom: 0;
             left: 0;
-            background-color: white;
+            background-color: var(--accent);
             transition: var(--transition);
             border-radius: 10px;
         }
 
         .nav-links a:hover {
-            color: white;
+            color: var(--text-light);
             transform: translateY(-2px);
         }
 
@@ -179,17 +720,15 @@
 
         /* 英雄区域样式 */
         .hero {
-            height: 100vh;
+            height: 80vh;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
             overflow: hidden;
-            background: linear-gradient(rgba(52, 152, 219, 0.85), rgba(44, 62, 80, 0.85)), url('img/微信图片_20251105220240_233_58.jpg');
-            background-size: cover;
-            background-position: center;
             color: white;
             text-align: center;
+            border-radius: 0 0 20px 20px;
         }
 
         .hero-content {
@@ -216,29 +755,6 @@
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        .hero-btn {
-            display: inline-block;
-            padding: 15px 35px;
-            background: linear-gradient(135deg, var(--accent) 0%, #c0392b 100%);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: var(--transition);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 1.1s;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .hero-btn:hover {
-            background: linear-gradient(135deg, #c0392b 0%, var(--accent) 100%);
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
-        }
-
         .floating-elements {
             position: absolute;
             top: 0;
@@ -258,12 +774,8 @@
 
         /* 班级介绍区域 */
         .section {
-            padding: 100px 0;
+            padding: 80px 0;
             position: relative;
-        }
-        
-        .section:nth-child(even) {
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
 
         .section-title {
@@ -484,282 +996,12 @@
             line-height: 1.7;
         }
 
-        /* 获奖展示区域 */
-        .awards-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .award-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            transition: var(--transition);
-            position: relative;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-        
-        .award-card::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-
-        .award-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-        }
-
-        .award-icon {
-            height: 120px;
-            background: linear-gradient(135deg, var(--primary) 0%, #2980b9 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 2.5rem;
-        }
-
-        .award-content {
-            padding: 25px;
-        }
-
-        .award-content h3 {
-            font-size: 1.3rem;
-            color: var(--secondary);
-            margin-bottom: 10px;
-        }
-
-        .award-content p {
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.7;
-        }
-
-        .award-date {
-            font-size: 0.9rem;
-            color: var(--primary);
-            font-weight: 600;
-            display: inline-block;
-            background: rgba(52, 152, 219, 0.1);
-            padding: 5px 10px;
-            border-radius: 20px;
-        }
-
         /* 班级回忆区域 */
         .memories {
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
 
-        .gallery-container {
-            position: relative;
-            height: 500px;
-            overflow: hidden;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-track {
-            display: flex;
-            height: 100%;
-            transition: transform 0.5s ease;
-        }
-
-        .gallery-slide {
-            min-width: 100%;
-            height: 100%;
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-
-        .slide-content {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            padding: 30px;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-            color: white;
-        }
-
-        .slide-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .gallery-nav {
-            position: absolute;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            gap: 10px;
-            z-index: 10;
-        }
-
-        .gallery-dot {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .gallery-dot.active {
-            background-color: white;
-            transform: scale(1.2);
-        }
-
-        .gallery-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(255, 255, 255, 0.8);
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 10;
-            transition: var(--transition);
-            font-size: 1.2rem;
-            color: var(--secondary);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .gallery-btn:hover {
-            background-color: white;
-            transform: translateY(-50%) scale(1.1);
-        }
-
-        .gallery-prev {
-            left: 20px;
-        }
-
-        .gallery-next {
-            right: 20px;
-        }
-
-        /* 页脚样式 */
-        footer {
-            background: linear-gradient(135deg, var(--secondary) 0%, #1a2530 100%);
-            color: var(--light);
-            padding: 70px 0 30px;
-            position: relative;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 50px;
-        }
-
-        .footer-section h3 {
-            color: var(--primary);
-            margin-bottom: 20px;
-            font-size: 1.3rem;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-            padding-left: 5px;
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #95a5a6;
-            font-size: 0.9rem;
-        }
-
-        /* 动画定义 */
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 1;
-            }
-            100% {
-                transform: translateY(-1000px) rotate(720deg);
-                opacity: 0;
-            }
-        }
-
-        /* 响应式设计 */
-        @media (max-width: 992px) {
-            .about-content {
-                flex-direction: column;
-            }
-            
-            .teachers-container {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .hero h2 {
-                font-size: 2.5rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h2 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1.1rem;
-            }
-            
-            .section-title h2 {
-                font-size: 2rem;
-            }
-            
-            .stats {
-                flex-direction: column;
-                gap: 15px;
-            }
-        }
-        
-        /* 独立样式 - 不会与现有代码冲突 */
+        /* 学生风采样式 */
         .photo-slider-container {
             max-width: 1200px;
             margin: 0 auto;
@@ -768,8 +1010,8 @@
         
         .photo-slider {
             width: 100%;
-            height: 70vh;
-            max-height: 700px;
+            height: 60vh;
+            max-height: 600px;
             position: relative;
             overflow: hidden;
             background: #000;
@@ -826,7 +1068,77 @@
             background-color: white;
             transform: scale(1.2);
         }
-        
+
+        /* 页脚样式 */
+        footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
+            color: var(--text-light);
+            padding: 70px 0 30px;
+            position: relative;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section h3 {
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* 动画定义 */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-1000px) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
         /* 入场动画 */
         .section {
             opacity: 0;
@@ -858,214 +1170,367 @@
         .section:nth-child(6) {
             transition-delay: 0.5s;
         }
+
+        /* 响应式设计 */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .teachers-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .photo-slider {
+                height: 50vh;
+            }
+            
+            .contest-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .photo-slider {
+                height: 40vh;
+            }
+        }
     </style>
 </head>
 <body>
-    <!-- 导航栏 -->
-    <header id="header">
-        <div class="container">
-            <nav>
-                <div class="logo">
-                    <div class="logo-icon">
-                        <i class="fas fa-network-wired"></i>
+    <div class="page-wrapper">
+        <!-- 头部区域 -->
+        <header id="header">
+            <div class="container">
+                <nav>
+                    <div class="logo">
+                        <img src="img/12.png" alt="班徽" class="class-badge">
+                        <div class="logo-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <h1>信息一班</h1>
                     </div>
-                    <h1>信息一班</h1>
-                </div>
-                <ul class="nav-links">
-                    <li><a href="#home">首页</a></li>
-                    <li><a href="#about">班级介绍</a></li>
-                    <li><a href="#teachers">班主任团队</a></li>
-					<li><a href="2.html">班级相册</a></li>
-                    <li><a href="#awards">获奖成果</a></li>
-                    <li><a href="wjcg.html">班级回忆</a></li>
-                    <li><a href="#contact">联系我们</a></li>
-					
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <!-- 英雄区域 -->
-    <section class="hero" id="home">
-        <div class="floating-elements">
-            <!-- 浮动元素由JS生成 -->
-        </div>
-        <div class="hero-content">
-            <h2>信息一班 · 光辉风采</h2>
-            <p>29位朝气蓬勃的男生，在王凤老师和苏秋月老师的带领下，<br>在运动场上挥洒汗水，在班级团体奖项中屡创佳绩</p>
-            <a href="#about" class="hero-btn">探索我们的故事</a>
-        </div>
-    </section>
-
-    <!-- 班级介绍 -->
-    <section class="section" id="about">
-        <div class="container">
-            <div class="section-title">
-                <h2>班级介绍</h2>
+                    <ul class="nav-links">
+                        <li><a href="#home">首页</a></li>
+                        <li><a href="#about">班级介绍</a></li>
+                        <li><a href="#teachers">班主任团队</a></li>
+                        <li><a href="2.html">班级相册</a></li>
+                        <li><a href="#awards">获奖成果</a></li>
+                        <li><a href="wjcg.html">班级回忆</a></li>
+                        <li><a href="#contact">联系我们</a></li>
+                    </ul>
+                </nav>
             </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>计算机网络技术专业 · 信息一班</h3>
-                    <p>我们是充满活力与激情的信息一班，专注于计算机网络技术的学习与实践。班级由29名男生组成，在王凤老师和苏秋月老师的悉心指导下，我们不仅在学习上追求卓越，在体育赛场上同样展现出顽强拼搏的精神。</p>
-                    <p>班级以"团结、拼搏、创新、卓越"为班训，在各类活动中展现出强大的凝聚力和创造力。从校运会到技能大赛，从短视频制作到绘画比赛，我们始终全力以赴，追求卓越。</p>
-                    <div class="stats">
-                        <div class="stat-item">
-                            <span class="stat-number" id="studentCount">29</span>
-                            <span class="stat-label">班级人数</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" id="awardCount">14</span>
-                            <span class="stat-label">获奖总数</span>
-                        </div>
-                        <div class="stat-item">
-                            <span class="stat-number" id="sportsCount">4</span>
-                            <span class="stat-label">运动会奖项</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="about-visual">
-                    <div class="rotating-card">
-                        <div class="card-face card-front">
-                            <div>信息一班 · 光辉风采</div>
-                        </div>
-                        <div class="card-face card-back">
-                            <h3>我们的特色</h3>
-                            <p>• 运动会多次获得团体总分前三名</p>
-                            <p>• 短视频制作大赛一等奖</p>
-                            <p>• 校园绘画比赛多个奖项</p>
-                            <p>• 运动会多次夺冠</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        </header>
 
-    <!-- 班主任介绍 -->
-    <section class="section teachers" id="teachers">
-        <div class="container">
-            <div class="section-title">
-                <h2>我们的班主任</h2>
-            </div>
-            <div class="teachers-container">
-                <div class="teacher-card">
-                    <div class="teacher-img">
-                        <!-- 这里可以放置王凤老师的照片 -->
-                        <div class="teacher-name">
-                            <h3>王凤老师</h3>
-                            <p>班主任</p>
+        <!-- 顶部区域 - 信息一班光辉风采 -->
+        <div class="top-section">
+            <section class="hero" id="home">
+                <div class="floating-elements">
+                    <!-- 浮动元素由JS生成 -->
+                </div>
+                <div class="hero-content">
+                    <img src="img/12.png" alt="班徽" class="class-badge-large">
+                    <h2>信息一班 · 光辉风采</h2>
+                    <p>29位朝气蓬勃的男生，在王凤老师和苏秋月老师的带领下，<br>在运动场上挥洒汗水，在班级团体奖项中屡创佳绩</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- 中间区域 - 参赛级布局 -->
+        <div class="content-wrapper">
+            <div class="center-section">
+                <!-- 第一行：班级介绍和班主任团队 -->
+                <div class="contest-layout">
+                    <!-- 班级介绍卡片 -->
+                    <div class="contest-card">
+                        <div class="contest-card-header">
+                            <h3>班级介绍</h3>
+                            <img src="img/12.png" alt="班徽" class="card-badge">
+                        </div>
+                        <div class="contest-card-body">
+                            <div class="contest-card-content">
+                                <p>信息一班由29名男生组成，专注于计算机网络技术的学习与实践。在王凤老师和苏秋月老师的指导下，我们在学习和体育赛场上都表现出色。</p>
+                                <p>班级以"团结、拼搏、创新、卓越"为班训，展现出强大的凝聚力和创造力。</p>
+                            </div>
+                            <div class="contest-stats">
+                                <div class="contest-stat-item">
+                                    <span class="contest-stat-number">29</span>
+                                    <span class="contest-stat-label">班级人数</span>
+                                </div>
+                                <div class="contest-stat-item">
+                                    <span class="contest-stat-number">14</span>
+                                    <span class="contest-stat-label">获奖总数</span>
+                                </div>
+                                <div class="contest-stat-item">
+                                    <span class="contest-stat-number">4</span>
+                                    <span class="contest-stat-label">运动会奖项</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="teacher-info">
-                        <p>王凤老师是我们信息一班的班主任，拥有丰富的教学经验和班级管理能力。她始终以学生为中心，关注每一位同学的成长与发展。</p>
-                        <p>在她的带领下，班级形成了积极向上、团结互助的良好氛围，在各项活动中都取得了优异成绩。</p>
+
+                    <!-- 班主任介绍卡片 -->
+                    <div class="contest-card">
+                        <div class="contest-card-header">
+                            <h3>班主任团队</h3>
+                            <img src="img/12.png" alt="班徽" class="card-badge">
+                        </div>
+                        <div class="contest-card-body">
+                            <div class="contest-card-content">
+                                <h4 class="contest-card-title">王凤老师（班主任）</h4>
+                                <p>拥有丰富的教学经验和班级管理能力，关注每一位同学的成长与发展。</p>
+                                
+                                <h4 class="contest-card-title">苏秋月老师（副班主任）</h4>
+                                <p>协助管理班级事务，关心学生的学习和生活。</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 获奖成果 -->
-    <section class="section" id="awards">
-        <div class="container">
-            <div class="section-title">
-                <h2>获奖成果</h2>
-            </div>
-            <div class="awards-container">
-                <div class="award-card">
-                    <div class="award-icon">
-                        <i class="fas fa-trophy"></i>
+                <!-- 第二行：获奖成果 -->
+                <div class="contest-layout" style="margin-top: 15px;">
+                    <div class="contest-card">
+                        <div class="contest-card-header" style="background: linear-gradient(135deg, var(--accent) 0%, #2980b9 100%), repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.1) 0px, rgba(255, 255, 255, 0.1) 10px, transparent 10px, transparent 20px);">
+                            <h3>获奖成果</h3>
+                            <img src="img/12.png" alt="班徽" class="card-badge">
+                        </div>
+                        <div class="contest-card-body">
+                            <div class="contest-awards-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+                                <div class="contest-award-card">
+                                    <div class="contest-award-icon">
+                                        <i class="fas fa-trophy"></i>
+                                    </div>
+                                    <div class="contest-award-content">
+                                        <h4 class="contest-award-title">校运会团体总分第一名</h4>
+                                        <p class="contest-award-description">在全校运动会上，信息一班凭借惟庸置疑的团队协作和个人表现，荣获团体总分第一名。</p>
+                                        <div class="contest-award-date">2025年10月</div>
+                                    </div>
+                                </div>
+                                <div class="contest-award-card">
+                                    <div class="contest-award-icon">
+                                        <i class="fas fa-film"></i>
+                                    </div>
+                                    <div class="contest-award-content">
+                                        <h4 class="contest-award-title">短视频制作大赛一等奖</h4>
+                                        <p class="contest-award-description">班级团队创作的短视频作品，获奖无数</p>
+                                        <div class="contest-award-date">2025年7月</div>
+                                    </div>
+                                </div>
+                                <div class="contest-award-card">
+                                    <div class="contest-award-icon">
+                                        <i class="fas fa-palette"></i>
+                                    </div>
+                                    <div class="contest-award-content">
+                                        <h4 class="contest-award-title">班级板报绘画比赛多个奖项</h4>
+                                        <p class="contest-award-description">班级同学在班级板报绘画比赛中表现优异，荣获二等奖1次，三等奖1次。</p>
+                                        <div class="contest-award-date">2024年5月</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="contest-awards-grid" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); margin-top: 15px;">
+                                <div class="contest-award-card">
+                                    <div class="contest-award-icon">
+                                        <i class="fas fa-running"></i>
+                                    </div>
+                                    <div class="contest-award-content">
+                                        <h4 class="contest-award-title">田径运动会多项冠军</h4>
+                                        <p class="contest-award-description">在校田径运动会上，班级同学在多个项目中获得冠军，包括4×100米接力、3km等。</p>
+                                        <div class="contest-award-date">2025年10月</div>
+                                    </div>
+                                </div>
+                                <div class="contest-award-card">
+                                    <div class="contest-award-icon">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                    <div class="contest-award-content">
+                                        <h4 class="contest-award-title">中华传统诗文大赛表现优异</h4>
+                                        <p class="contest-award-description">数名同学在北京市中等职业学校中华传统诗文大赛中斩获奖项</p>
+                                        <div class="contest-award-date">2025年5月</div>
+                                    </div>
+                                </div>
+                                <div class="contest-award-card">
+                                    <div class="contest-award-icon">
+                                        <i class="fas fa-network-wired"></i>
+                                    </div>
+                                    <div class="contest-award-content">
+                                        <h4 class="contest-award-title">银杏叶心理画大赛优秀组织奖</h4>
+                                        <p class="contest-award-description">约75%的同学在北京市经济管理学校银杏叶心理画大赛中获得该奖项</p>
+                                        <div class="contest-award-date">2024年12月</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="award-content">
-                        <h3>校运会团体总分第一名</h3>
-                        <p>在全校运动会上，信息一班凭借惟庸置疑的团队协作和个人表现，荣获团体总分第一名。</p>
-                        <div class="award-date">2025年10月</div>
-                    </div>
-                </div>
-                <div class="award-card">
-                    <div class="award-icon">
-                        <i class="fas fa-film"></i>
-                    </div>
-                    <div class="award-content">
-                        <h3>短视频制作大赛一等奖</h3>
-                        <p>班级团队创作的短视频作品，获奖无数</p>
-                        <div class="award-date">2025年7月</div>
-                    </div>
-                </div>
-                <div class="award-card">
-                    <div class="award-icon">
-                        <i class="fas fa-palette"></i>
-                    </div>
-                    <div class="award-content">
-                        <h3>班级板报绘画比赛多个奖项</h3>
-                        <p>班级同学在班级板报绘画比赛中表现优异，荣获二等奖1次，三等奖1次。</p>
-                        <div class="award-date">2024年5月</div>
-                    </div>
-                </div>
-                <div class="award-card">
-                    <div class="award-icon">
-                        <i class="fas fa-network-wired"></i>
-                    </div>
-                    <div class="award-content">
-                        <h3>北京市经济管理学校，银杏叶心理画大赛，荣获优秀组织奖</h3>
-                        <p>达成荣誉成就：24级信息一班约为75%参加者获得了该奖项</p>
-                        <div class="award-date">2024年12月</div>
-                    </div>
-                </div>
-                <div class="award-card">
-                    <div class="award-icon">
-                        <i class="fas fa-running"></i>
-                    </div>
-                    <div class="award-content">
-                        <h3>田径运动会多项冠军</h3>
-                        <p>在校田径运动会上，班级同学在多个项目中获得冠军，包括4×100米接力、3km等。</p>
-                        <div class="award-date">2025年10月</div>
-                    </div>
-                </div>
-				
-                <div class="award-card">
-                    <div class="award-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="award-content">
-                        <h3>北京市中等职业学校中华传统诗文大赛表现优异 -24级信息一班</h3>
-                        <p>数名同学斩获奖项</p>
-                        <div class="award-date">2025年5月</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    
-    <!-- 学生风采 -->
-    <section class="section" id="memories">
-        <div class="container">
-            <div class="section-title">
-                <h2>学生风采</h2>
-            </div>
-        </div>
-        <div class="photo-slider-container">
-            <div class="photo-slider">
-                <div class="slide active">
-                    <img src="img/微信图片_2025-11-05_223218_930.jpg" alt="学生风采1" />
-                </div>
-                <div class="slide">
-                    <img src="img/微信图片_2025-11-05_223337_840.jpg" alt="学生风采2" />
-                </div>
-                <div class="slide">
-                    <img src="img/微信图片_2025-11-05_223327_060.jpg" alt="学生风采3"/>
                 </div>
                 
-                <div class="indicators">
-                    <div class="indicator active" data-index="0"></div>
-                    <div class="indicator" data-index="1"></div>
-                    <div class="indicator" data-index="2"></div>
+                <!-- 第三行：班级活动、专业特色和未来展望 -->
+                <div class="contest-layout">
+                    <!-- 班级活动卡片 -->
+                    <div class="contest-card">
+                        <div class="contest-card-header">
+                            <h3>班级活动</h3>
+                        </div>
+                        <div class="contest-card-body">
+                            <div class="contest-card-content">
+                                <p>我们班级定期组织各类活动，丰富同学们的课余生活，增强班级凝聚力。</p>
+                                <ul>
+                                    <li>每月一次的班级团建活动</li>
+                                    <li>定期的技术分享会</li>
+                                    <li>节日庆祝活动</li>
+                                    <li>户外拓展训练</li>
+                                    <li>志愿服务活动</li>
+                                    <li>读书分享会</li>
+                                </ul>
+                                <p>这些活动不仅让大家放松身心，也增进了同学之间的友谊。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 专业特色卡片 -->
+                    <div class="contest-card">
+                        <div class="contest-card-header">
+                            <h3>专业特色</h3>
+                        </div>
+                        <div class="contest-card-body">
+                            <div class="contest-card-content">
+                                <p>作为计算机网络技术专业的学生，我们注重理论与实践相结合：</p>
+                                <ul>
+                                    <li>网络安全攻防实训</li>
+                                    <li>网络系统集成项目</li>
+                                    <li>云计算与大数据应用</li>
+                                    <li>物联网技术实践</li>
+                                    <li>移动应用开发</li>
+                                    <li>人工智能基础</li>
+                                </ul>
+                                <p>通过丰富的实践项目，我们不断提升专业技能。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 未来展望卡片 -->
+                    <div class="contest-card">
+                        <div class="contest-card-header">
+                            <h3>未来展望</h3>
+                        </div>
+                        <div class="contest-card-body">
+                            <div class="contest-card-content">
+                                <p>展望未来，我们将继续努力：</p>
+                                <ul>
+                                    <li>在学业上追求更高成就</li>
+                                    <li>积极参与各类技能竞赛</li>
+                                    <li>提升综合素质和专业能力</li>
+                                    <li>为将来的职业发展打下坚实基础</li>
+                                    <li>传承班级文化，帮助学弟学妹</li>
+                                    <li>在社会实践中贡献青春力量</li>
+                                </ul>
+                                <p>我们相信，在老师们的指导下，信息一班会创造更多辉煌！</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <!-- 底部区域 - 学生风采 -->
+            <div class="bottom-section">
+                <section class="section" id="memories">
+                    <div class="container">
+                        <div class="section-title">
+                            <h2>学生风采</h2>
+                        </div>
+                    </div>
+                    <div class="photo-slider-container">
+                        <div class="photo-slider">
+                            <div class="slide active">
+                                <img src="img/微信图片_2025-11-05_223218_930.jpg" alt="学生风采1" />
+                            </div>
+                            <div class="slide">
+                                <img src="img/微信图片_2025-11-05_223337_840.jpg" alt="学生风采2" />
+                            </div>
+                            <div class="slide">
+                                <img src="img/微信图片_2025-11-05_223327_060.jpg" alt="学生风采3"/>
+                            </div>
+                            
+                            <div class="indicators">
+                                <div class="indicator active" data-index="0"></div>
+                                <div class="indicator" data-index="1"></div>
+                                <div class="indicator" data-index="2"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
-    </section>
+
+        <!-- 页脚区域 -->
+        <footer class="footer-section" id="contact">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3><img src="img/12.png" alt="班徽" class="footer-badge">信息一班</h3>
+                        <p>计算机网络技术专业</p>
+                        <p>29位朝气蓬勃的青年</p>
+                    </div>
+                    <div class="footer-section">
+                        <h3>快速链接</h3>
+                        <ul class="footer-links">
+                            <li><a href="#home">首页</a></li>
+                            <li><a href="#about">班级介绍</a></li>
+                            <li><a href="#teachers">班主任团队</a></li>
+                            <li><a href="#awards">获奖成果</a></li>
+                            <li><a href="#memories">班级回忆</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <!-- 联系我们标题 -->
+                        <h3>联系我们</h3>
+                        <!-- 联系信息列表 -->
+                        <ul class="footer-links">
+                            <!-- 班主任信息 -->
+                            <li><i class="fas fa-user"></i> 班主任：王凤老师</li>
+                            <!-- 副班主任信息 -->
+                            <li><i class="fas fa-user"></i> 副班主任：苏秋月老师</li>
+                            <!-- 邮箱信息 -->
+                            <li><i class="fas fa-envelope"></i> 邮箱：info1@example.com</li>
+                            <!-- 地址信息 -->
+                            <li><i class="fas fa-map-marker-alt"></i> 地址：北京市XX区XX路XX号</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="copyright">
+                    <p>Copyright © 2025 信息一班 - 计算机网络技术专业. All Rights Reserved.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
     
     <script>
         // 创建背景粒子效果
@@ -1087,12 +1552,463 @@
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
                 
+                // 随机颜色
+                const colors = ['rgba(52, 152, 219, 0.5)', 'rgba(41, 128, 185, 0.5)', 'rgba(44, 62, 80, 0.5)', 'rgba(236, 240, 241, 0.5)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
                 // 随机动画延迟和持续时间
-                particle.style.animationDelay = `${Math.random() * 10}s`;
-                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${Math.random() * 25 + 15}s`;
                 
                 particlesContainer.appendChild(particle);
             }
+            
+            // 添加背景元素
+            const bgElementsContainer = document.createElement('div');
+            bgElementsContainer.className = 'background-elements';
+            document.body.appendChild(bgElementsContainer);
+            
+            for (let i = 0; i < 20; i++) {
+                const element = document.createElement('div');
+                element.className = 'bg-element';
+                
+                // 随机类型
+                const types = ['', 'square', 'triangle'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                if (type) element.classList.add(type);
+                
+                // 随机大小
+                const size = Math.random() * 100 + 20;
+                if (type !== 'triangle') {
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                }
+                
+                // 随机位置
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colors = [
+                    'rgba(52, 152, 219, 0.1)',
+                    'rgba(41, 128, 185, 0.1)',
+                    'rgba(44, 62, 80, 0.1)',
+                    'rgba(236, 240, 241, 0.1)'
+                ];
+                if (type !== 'triangle') {
+                    element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                }
+                
+                // 随机动画延迟和持续时间
+                element.style.animationDelay = `${Math.random() * 15}s`;
+                element.style.animationDuration = `${Math.random() * 30 + 20}s`;
+                
+                bgElementsContainer.appendChild(element);
+            }
+        }
+        
+        // 鼠标轨迹效果
+        function createCursorTrail() {
+            // 创建跟随鼠标的元素
+            const follower = document.createElement('div');
+            follower.className = 'cursor-follower';
+            document.body.appendChild(follower);
+            
+            // 创建光晕效果
+            const glow = document.createElement('div');
+            glow.className = 'cursor-glow';
+            document.body.appendChild(glow);
+            
+            // 创建波浪效果容器
+            const waveContainer = document.createElement('div');
+            waveContainer.className = 'wave-effect';
+            document.body.appendChild(waveContainer);
+            
+            // 存储轨迹元素的数组
+            const trails = [];
+            const colors = [
+                'rgba(52, 152, 219, 0.6)',
+                'rgba(41, 128, 185, 0.6)',
+                'rgba(44, 62, 80, 0.6)',
+                'rgba(236, 240, 241, 0.8)'
+            ];
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let trailCount = 0;
+            let waveCount = 0;
+            
+            // 鼠标移动事件
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // 更新跟随元素位置
+                follower.style.left = mouseX + 'px';
+                follower.style.top = mouseY + 'px';
+                
+                // 更新光晕位置
+                glow.style.left = mouseX + 'px';
+                glow.style.top = mouseY + 'px';
+                
+                // 创建不同类型的轨迹元素
+                if (trailCount % 5 === 0) {
+                    createDotTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 10 === 0) {
+                    createRingTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 7 === 0) {
+                    createSquareTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 13 === 0) {
+                    createTriangleTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 3 === 0) {
+                    createParticleTrail(mouseX, mouseY);
+                }
+                
+                // 创建波浪效果
+                if (waveCount % 15 === 0) {
+                    createWaveEffect(mouseX, mouseY);
+                }
+                
+                trailCount++;
+                waveCount++;
+                
+                // 限制轨迹元素数量
+                if (trails.length > 100) {
+                    const oldTrail = trails.shift();
+                    if (oldTrail && oldTrail.parentNode) {
+                        oldTrail.parentNode.removeChild(oldTrail);
+                    }
+                }
+            });
+            
+            // 创建点状轨迹
+            function createDotTrail(x, y) {
+                const dot = document.createElement('div');
+                dot.className = 'complex-trail';
+                
+                const innerDot = document.createElement('div');
+                innerDot.className = 'trail-dot';
+                innerDot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                innerDot.style.width = (Math.random() * 15 + 5) + 'px';
+                innerDot.style.height = innerDot.style.width;
+                
+                dot.appendChild(innerDot);
+                dot.style.left = x + 'px';
+                dot.style.top = y + 'px';
+                
+                document.body.appendChild(dot);
+                trails.push(dot);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (dot.parentNode) {
+                        dot.parentNode.removeChild(dot);
+                        const index = trails.indexOf(dot);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 1500);
+            }
+            
+            // 创建环状轨迹
+            function createRingTrail(x, y) {
+                const ring = document.createElement('div');
+                ring.className = 'complex-trail';
+                
+                const innerRing = document.createElement('div');
+                innerRing.className = 'trail-ring';
+                innerRing.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                ring.appendChild(innerRing);
+                ring.style.left = x + 'px';
+                ring.style.top = y + 'px';
+                
+                document.body.appendChild(ring);
+                trails.push(ring);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (ring.parentNode) {
+                        ring.parentNode.removeChild(ring);
+                        const index = trails.indexOf(ring);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 2000);
+            }
+            
+            // 创建方形轨迹
+            function createSquareTrail(x, y) {
+                const square = document.createElement('div');
+                square.className = 'complex-trail';
+                
+                const innerSquare = document.createElement('div');
+                innerSquare.className = 'trail-square';
+                innerSquare.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                innerSquare.style.width = (Math.random() * 15 + 5) + 'px';
+                innerSquare.style.height = innerSquare.style.width;
+                
+                square.appendChild(innerSquare);
+                square.style.left = x + 'px';
+                square.style.top = y + 'px';
+                
+                document.body.appendChild(square);
+                trails.push(square);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (square.parentNode) {
+                        square.parentNode.removeChild(square);
+                        const index = trails.indexOf(square);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 3000);
+            }
+            
+            // 创建三角轨迹
+            function createTriangleTrail(x, y) {
+                const triangle = document.createElement('div');
+                triangle.className = 'complex-trail';
+                
+                const innerTriangle = document.createElement('div');
+                innerTriangle.className = 'trail-triangle';
+                innerTriangle.style.borderBottomColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                triangle.appendChild(innerTriangle);
+                triangle.style.left = x + 'px';
+                triangle.style.top = y + 'px';
+                
+                document.body.appendChild(triangle);
+                trails.push(triangle);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (triangle.parentNode) {
+                        triangle.parentNode.removeChild(triangle);
+                        const index = trails.indexOf(triangle);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 2000);
+            }
+            
+            // 创建粒子轨迹
+            function createParticleTrail(x, y) {
+                const particleCount = Math.floor(Math.random() * 8) + 5;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 8 + 2) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 100 + 50;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 2500);
+                }
+            }
+            
+            // 创建波浪效果
+            function createWaveEffect(x, y) {
+                const wave = document.createElement('div');
+                wave.className = 'wave';
+                wave.style.left = x + 'px';
+                wave.style.top = y + 'px';
+                wave.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机大小
+                const size = Math.random() * 50 + 30;
+                wave.style.width = size + 'px';
+                wave.style.height = size + 'px';
+                
+                document.body.appendChild(wave);
+                trails.push(wave);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (wave.parentNode) {
+                        wave.parentNode.removeChild(wave);
+                        const index = trails.indexOf(wave);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 3000);
+            }
+            
+            // 鼠标按下时的效果
+            document.addEventListener('mousedown', () => {
+                follower.classList.add('expand');
+                // 创建扩散效果
+                for (let i = 0; i < 12; i++) {
+                    const wave = document.createElement('div');
+                    wave.className = 'complex-trail';
+                    
+                    const ring = document.createElement('div');
+                    ring.className = 'trail-ring';
+                    ring.style.borderColor = 'rgba(52, 152, 219, 0.8)';
+                    ring.style.animation = 'ringExpand 1.5s forwards';
+                    
+                    wave.appendChild(ring);
+                    wave.style.left = mouseX + 'px';
+                    wave.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(wave);
+                    trails.push(wave);
+                    
+                    // 自动移除波纹元素
+                    setTimeout(() => {
+                        if (wave.parentNode) {
+                            wave.parentNode.removeChild(wave);
+                            const index = trails.indexOf(wave);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1500);
+                }
+                
+                // 创建爆炸粒子效果
+                for (let i = 0; i < 25; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 12 + 6) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 150 + 80;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    innerParticle.style.animation = 'particleFloat 1.5s forwards';
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = mouseX + 'px';
+                    particle.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1500);
+                }
+                
+                // 创建方形爆炸效果
+                for (let i = 0; i < 8; i++) {
+                    const square = document.createElement('div');
+                    square.className = 'complex-trail';
+                    
+                    const innerSquare = document.createElement('div');
+                    innerSquare.className = 'trail-square';
+                    innerSquare.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerSquare.style.width = (Math.random() * 15 + 10) + 'px';
+                    innerSquare.style.height = innerSquare.style.width;
+                    innerSquare.style.animation = 'squareRotate 2s forwards';
+                    
+                    square.appendChild(innerSquare);
+                    square.style.left = mouseX + 'px';
+                    square.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(square);
+                    trails.push(square);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (square.parentNode) {
+                            square.parentNode.removeChild(square);
+                            const index = trails.indexOf(square);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 2000);
+                }
+            });
+            
+            // 鼠标松开时的效果
+            document.addEventListener('mouseup', () => {
+                follower.classList.remove('expand');
+            });
+            
+            // 链接悬停时的效果
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    follower.style.borderColor = 'rgba(41, 128, 185, 0.8)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    follower.style.boxShadow = '0 0 20px rgba(52, 152, 219, 0.5)';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    follower.style.borderColor = 'rgba(52, 152, 219, 0.5)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    follower.style.boxShadow = 'none';
+                });
+            });
+            
+            // 滚动时隐藏光晕效果以提高性能
+            let hideGlowTimeout;
+            document.addEventListener('scroll', () => {
+                glow.style.opacity = '0';
+                clearTimeout(hideGlowTimeout);
+                hideGlowTimeout = setTimeout(() => {
+                    glow.style.opacity = '1';
+                }, 200);
+            });
         }
         
         // 自动轮播逻辑
@@ -1172,6 +2088,7 @@
         // 初始化
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
+            createCursorTrail();
             animateOnScroll();
             handleNavScroll();
         });
@@ -1181,61 +2098,5 @@
             handleNavScroll();
         });
     </script>
-
-
-                        </div>
-                    </div>
-                </div>
-                <div class="gallery-btn gallery-prev">
-                    <i class="fas fa-chevron-left"></i>
-                </div>
-                <div class="gallery-btn gallery-next">
-                    <i class="fas fa-chevron-right"></i>
-                </div>
-                <div class="gallery-nav">
-                    <div class="gallery-dot active"></div>
-                    <div class="gallery-dot"></div>
-                    <div class="gallery-dot"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer id="contact">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>信息一班</h3>
-                    <p>计算机网络技术专业<br>29位充满活力的男生<br>在王凤老师和苏秋月老师的带领下<br>追求卓越，创造精彩</p>
-                </div>
-                <div class="footer-section">
-                    <h3>快速链接</h3>
-                    <ul class="footer-links">
-                        <li><a href="#home">首页</a></li>
-                        <li><a href="#about">班级介绍</a></li>
-                        <li><a href="#teachers">班主任团队</a></li>
-                        <li><a href="#awards">获奖成果</a></li>
-                        <li><a href="#memories">班级回忆</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>联系我们</h3>
-                    <ul class="footer-links">
-                        <li><i class="fas fa-user"></i> 班主任：王凤老师</li>
-                        <li><i class="fas fa-user"></i> 副班主任：苏秋月老师</li>
-                        <li><i class="fas fa-envelope"></i> 邮箱：info1@example.com</li>
-                        <li><i class="fas fa-map-marker-alt"></i> 地址：北京市XX区XX路XX号</li>
-                    </ul>
-                </div>
-            </div>
-			
-            <div class="copyright">
-                <p>Copyright © 2025 信息一班 - 计算机网络技术专业. All Rights Reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-  
 </body>
 </html>

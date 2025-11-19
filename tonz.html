@@ -14,8 +14,8 @@
         }
         
         body {
-            background: linear-gradient(135deg, #1e5799 0%, #2989d8 100%);
-            color: #333;
+            background: linear-gradient(135deg, #1e2228 0%, #14161a 100%);
+            color: #f0f0f0;
             line-height: 1.6;
             min-height: 100vh;
             position: relative;
@@ -29,13 +29,41 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 20%),
-                        radial-gradient(circle at 90% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 20%);
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.05) 0%, transparent 20%);
             z-index: -1;
         }
         
+        /* 返回按钮样式 */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a);
+            color: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            border: 1px solid rgba(52, 152, 219, 0.6);
+        }
+        
         .particles {
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
@@ -47,7 +75,7 @@
         .particle {
             position: absolute;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(52, 152, 219, 0.5);
             animation: float 15s infinite linear;
         }
         
@@ -76,8 +104,8 @@
         }
         
         header {
-            background: linear-gradient(135deg, #1e5799 0%, #2989d8 100%);
-            color: white;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+            color: #f0f0f0;
             padding: 30px 20px;
             border-radius: 15px;
             margin-bottom: 25px;
@@ -85,7 +113,7 @@
             text-align: center;
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(52, 152, 219, 0.2);
             backdrop-filter: blur(10px);
         }
         
@@ -96,7 +124,9 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.1) 0%, transparent 20%);
             transform: rotate(30deg);
             z-index: 0;
         }
@@ -116,6 +146,7 @@
             margin-right: 15px;
             font-size: 2.2rem;
             animation: pulse 2s infinite;
+            color: #3498db;
         }
         
         @keyframes pulse {
@@ -129,10 +160,11 @@
             opacity: 0.9;
             position: relative;
             z-index: 1;
+            color: #b0b0b0;
         }
         
         .date-display {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
             padding: 15px;
             border-radius: 12px;
             margin-bottom: 20px;
@@ -140,18 +172,18 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(52, 152, 219, 0.2);
             backdrop-filter: blur(5px);
         }
         
         .date-display .current-date {
             font-size: 1.2rem;
             font-weight: bold;
-            color: #1e5799;
+            color: #3498db;
         }
         
         .date-display .update-info {
-            color: #666;
+            color: #b0b0b0;
             font-size: 0.9rem;
         }
         
@@ -162,14 +194,15 @@
         }
         
         .announcement {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            backdrop-filter: blur(10px);
         }
         
         .announcement::before {
@@ -179,12 +212,13 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, #1e5799, #2989d8);
+            background: linear-gradient(90deg, #3498db, #2980b9);
         }
         
         .announcement:hover {
             transform: translateY(-8px) scale(1.01);
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.25);
+            border: 1px solid rgba(52, 152, 219, 0.4);
         }
         
         .announcement-header {
@@ -193,12 +227,12 @@
             align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         .announcement-title {
             font-size: 1.4rem;
-            color: #1e5799;
+            color: #f0f0f0;
             display: flex;
             align-items: center;
             font-weight: 600;
@@ -206,14 +240,14 @@
         
         .announcement-title i {
             margin-right: 12px;
-            color: #ff9800;
+            color: #3498db;
             font-size: 1.3rem;
         }
         
         .announcement-time {
-            color: #777;
+            color: #b0b0b0;
             font-size: 0.95rem;
-            background: #f0f5ff;
+            background: rgba(52, 152, 219, 0.1);
             padding: 5px 12px;
             border-radius: 20px;
             font-weight: 500;
@@ -226,6 +260,7 @@
         .announcement-content p {
             margin-bottom: 15px;
             line-height: 1.7;
+            color: #f0f0f0;
         }
         
         .announcement-content ul {
@@ -236,25 +271,26 @@
         .announcement-content li {
             margin-bottom: 12px;
             line-height: 1.7;
+            color: #f0f0f0;
         }
         
         .highlight {
-            background: linear-gradient(135deg, #fff9e6 0%, #fff5cc 100%);
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, rgba(41, 128, 185, 0.2) 100%);
             padding: 20px;
             border-radius: 12px;
             margin: 20px 0;
-            border-left: 5px solid #ffc107;
+            border-left: 5px solid #3498db;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
         
         .important {
-            color: #e53935;
+            color: #e74c3c;
             font-weight: bold;
         }
         
         .warning {
-            background: linear-gradient(135deg, #ffebee 0%, #ffdada 100%);
-            border-left: 5px solid #e53935;
+            background: linear-gradient(135deg, rgba(231, 76, 60, 0.2) 0%, rgba(192, 57, 43, 0.2) 100%);
+            border-left: 5px solid #e74c3c;
             padding: 15px 20px;
             border-radius: 8px;
             margin: 15px 0;
@@ -262,8 +298,8 @@
         }
         
         .success {
-            background: linear-gradient(135deg, #e8f5e9 0%, #d0f0d1 100%);
-            border-left: 5px solid #4caf50;
+            background: linear-gradient(135deg, rgba(46, 204, 113, 0.2) 0%, rgba(39, 174, 96, 0.2) 100%);
+            border-left: 5px solid #2ecc71;
             padding: 15px 20px;
             border-radius: 8px;
             margin: 15px 0;
@@ -271,8 +307,8 @@
         }
         
         .info {
-            background: linear-gradient(135deg, #e3f2fd 0%, #cce6ff 100%);
-            border-left: 5px solid #2196f3;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, rgba(41, 128, 185, 0.2) 100%);
+            border-left: 5px solid #3498db;
             padding: 15px 20px;
             border-radius: 8px;
             margin: 15px 0;
@@ -288,31 +324,32 @@
             text-align: center;
             margin-top: 40px;
             padding: 25px;
-            color: rgba(255, 255, 255, 0.8);
+            color: #b0b0b0;
             font-size: 0.95rem;
-            background: rgba(0, 0, 0, 0.2);
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
             border-radius: 12px;
             backdrop-filter: blur(5px);
+            border: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         /* 新增的竞赛公告特殊样式 */
         .competition-announcement {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f8ff 100%);
-            border: 1px solid rgba(33, 150, 243, 0.3);
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+            border: 1px solid rgba(52, 152, 219, 0.3);
             position: relative;
             overflow: hidden;
         }
         
         .competition-announcement::before {
-            background: linear-gradient(90deg, #2196f3, #2989d8);
+            background: linear-gradient(90deg, #3498db, #2980b9);
         }
         
         .competition-announcement .announcement-title {
-            color: #2196f3;
+            color: #f0f0f0;
         }
         
         .competition-announcement .announcement-title i {
-            color: #ff5722;
+            color: #e74c3c;
             animation: bounce 2s infinite;
         }
         
@@ -322,54 +359,218 @@
         }
         
         .competition-info {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.2) 0%, rgba(41, 128, 185, 0.2) 100%);
             border-radius: 10px;
             padding: 15px;
             position: relative;
-            border: 1px solid rgba(33, 150, 243, 0.2);
+            border: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         .competition-badge {
             position: absolute;
             top: 20px;
             right: 20px;
-            background: linear-gradient(135deg, #ff9800, #f57c00);
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             padding: 5px 15px;
             border-radius: 20px;
             font-weight: bold;
             font-size: 0.9rem;
-            box-shadow: 0 4px 10px rgba(245, 124, 0, 0.3);
+            box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
             z-index: 2;
+            border: 1px solid rgba(52, 152, 219, 0.4);
         }
         
         .competition-highlight {
-            background: rgba(255, 255, 255, 0.7);
+            background: rgba(52, 152, 219, 0.1);
             padding: 15px;
             border-radius: 10px;
             margin: 15px 0;
-            border-left: 4px solid #ff9800;
+            border-left: 4px solid #3498db;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
         }
         
         .competition-point {
-            background: rgba(255, 255, 255, 0.5);
+            background: rgba(44, 62, 80, 0.3);
             padding: 12px;
             border-radius: 8px;
             margin: 10px 0;
-            border-left: 3px solid #4caf50;
+            border-left: 3px solid #2ecc71;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
         }
         
         .competition-conclusion {
-            background: rgba(255, 255, 255, 0.8);
+            background: rgba(52, 152, 219, 0.1);
             padding: 15px;
             border-radius: 10px;
             margin: 15px 0;
             text-align: center;
             font-weight: bold;
-            border: 1px dashed #ff9800;
+            border: 1px dashed #3498db;
             box-shadow: 0 3px 8px rgba(0, 0, 0, 0.05);
+        }
+        
+        /* 鼠标轨迹效果 */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: trailFade 0.5s forwards;
+        }
+
+        @keyframes trailFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2);
+            }
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, border-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower.expand {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: rgba(41, 128, 185, 0.8);
+        }
+        
+        /* 复杂轨迹元素 */
+        .complex-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            transform: translate(-50%, -50%);
+        }
+        
+        .trail-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.6);
+            transform: translate(-50%, -50%);
+            animation: dotPulse 1s infinite alternate;
+        }
+        
+        .trail-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(41, 128, 185, 0.7);
+            transform: translate(-50%, -50%);
+            animation: ringExpand 1.5s forwards;
+        }
+        
+        .trail-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(236, 240, 241, 0.8);
+            transform: translate(-50%, -50%);
+            animation: particleFloat 2s forwards;
+        }
+        
+        @keyframes dotPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes ringExpand {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 1;
+            }
+            100% {
+                width: 60px;
+                height: 60px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, 0px)));
+                opacity: 0;
+            }
+        }
+        
+        /* 光晕效果 */
+        .cursor-glow {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.3) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9996;
+            transform: translate(-50%, -50%);
+            animation: glowPulse 2s infinite alternate;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+        
+        /* 班徽样式 */
+        .class-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(52, 152, 219, 0.6);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
+        
+        /* 波浪效果 */
+        .wave {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(52, 152, 219, 0.3) 0%, rgba(41, 128, 185, 0.3) 100%);
+            pointer-events: none;
+            z-index: 9995;
+            animation: waveAnimation 10s infinite linear;
+        }
+        
+        @keyframes waveAnimation {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 100% 100%;
+            }
         }
         
         @media (max-width: 768px) {
@@ -438,7 +639,7 @@
         }
         
         .shimmer-effect {
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+            background: linear-gradient(to right, rgba(52, 152, 219, 0) 0%, rgba(52, 152, 219, 0.3) 50%, rgba(52, 152, 219, 0) 100%);
             background-repeat: no-repeat;
             background-size: 1000px 100%;
             animation: shimmer 2s infinite linear;
@@ -446,6 +647,11 @@
     </style>
 </head>
 <body>
+    <a href="2.html" class="back-button">
+        <img src="img/12.png" alt="班徽" class="class-badge" style="width: 24px; height: 24px;">
+        返回主页
+    </a>
+    
     <div class="container">
         <header>
             <h1><i class="fas fa-bullhorn"></i> 班级公告栏</h1>
@@ -576,12 +782,283 @@
                 particle.style.left = `${Math.random() * 100}%`;
                 particle.style.top = `${Math.random() * 100}%`;
                 
+                // 随机颜色
+                const colors = ['rgba(52, 152, 219, 0.5)', 'rgba(41, 128, 185, 0.5)', 'rgba(44, 62, 80, 0.5)', 'rgba(236, 240, 241, 0.5)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
                 // 随机动画延迟和持续时间
                 particle.style.animationDelay = `${Math.random() * 10}s`;
                 particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
                 
                 particlesContainer.appendChild(particle);
             }
+        }
+        
+        // 鼠标轨迹效果
+        function createCursorTrail() {
+            // 创建跟随鼠标的元素
+            const follower = document.createElement('div');
+            follower.className = 'cursor-follower';
+            document.body.appendChild(follower);
+            
+            // 创建光晕效果
+            const glow = document.createElement('div');
+            glow.className = 'cursor-glow';
+            document.body.appendChild(glow);
+            
+            // 存储轨迹元素的数组
+            const trails = [];
+            const colors = [
+                'rgba(52, 152, 219, 0.6)',
+                'rgba(41, 128, 185, 0.6)',
+                'rgba(44, 62, 80, 0.6)',
+                'rgba(236, 240, 241, 0.8)'
+            ];
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let trailCount = 0;
+            
+            // 鼠标移动事件
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // 更新跟随元素位置
+                follower.style.left = mouseX + 'px';
+                follower.style.top = mouseY + 'px';
+                
+                // 更新光晕位置
+                glow.style.left = mouseX + 'px';
+                glow.style.top = mouseY + 'px';
+                
+                // 创建不同类型的轨迹元素
+                if (trailCount % 5 === 0) {
+                    createDotTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 10 === 0) {
+                    createRingTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 3 === 0) {
+                    createParticleTrail(mouseX, mouseY);
+                }
+                
+                trailCount++;
+                
+                // 限制轨迹元素数量
+                if (trails.length > 50) {
+                    const oldTrail = trails.shift();
+                    if (oldTrail && oldTrail.parentNode) {
+                        oldTrail.parentNode.removeChild(oldTrail);
+                    }
+                }
+            });
+            
+            // 创建点状轨迹
+            function createDotTrail(x, y) {
+                const dot = document.createElement('div');
+                dot.className = 'complex-trail';
+                
+                const innerDot = document.createElement('div');
+                innerDot.className = 'trail-dot';
+                innerDot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                innerDot.style.width = (Math.random() * 10 + 5) + 'px';
+                innerDot.style.height = innerDot.style.width;
+                
+                dot.appendChild(innerDot);
+                dot.style.left = x + 'px';
+                dot.style.top = y + 'px';
+                
+                document.body.appendChild(dot);
+                trails.push(dot);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (dot.parentNode) {
+                        dot.parentNode.removeChild(dot);
+                        const index = trails.indexOf(dot);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 1000);
+            }
+            
+            // 创建环状轨迹
+            function createRingTrail(x, y) {
+                const ring = document.createElement('div');
+                ring.className = 'complex-trail';
+                
+                const innerRing = document.createElement('div');
+                innerRing.className = 'trail-ring';
+                innerRing.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                ring.appendChild(innerRing);
+                ring.style.left = x + 'px';
+                ring.style.top = y + 'px';
+                
+                document.body.appendChild(ring);
+                trails.push(ring);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (ring.parentNode) {
+                        ring.parentNode.removeChild(ring);
+                        const index = trails.indexOf(ring);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 1500);
+            }
+            
+            // 创建粒子轨迹
+            function createParticleTrail(x, y) {
+                const particleCount = Math.floor(Math.random() * 5) + 3;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 6 + 2) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 50 + 20;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 2000);
+                }
+            }
+            
+            // 鼠标按下时的效果
+            document.addEventListener('mousedown', () => {
+                follower.classList.add('expand');
+                // 创建扩散效果
+                for (let i = 0; i < 8; i++) {
+                    const wave = document.createElement('div');
+                    wave.className = 'complex-trail';
+                    
+                    const ring = document.createElement('div');
+                    ring.className = 'trail-ring';
+                    ring.style.borderColor = 'rgba(52, 152, 219, 0.8)';
+                    ring.style.animation = 'ringExpand 1s forwards';
+                    
+                    wave.appendChild(ring);
+                    wave.style.left = mouseX + 'px';
+                    wave.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(wave);
+                    trails.push(wave);
+                    
+                    // 自动移除波纹元素
+                    setTimeout(() => {
+                        if (wave.parentNode) {
+                            wave.parentNode.removeChild(wave);
+                            const index = trails.indexOf(wave);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1000);
+                }
+                
+                // 创建爆炸粒子效果
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 8 + 4) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 100 + 50;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    innerParticle.style.animation = 'particleFloat 1s forwards';
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = mouseX + 'px';
+                    particle.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1000);
+                }
+            });
+            
+            // 鼠标松开时的效果
+            document.addEventListener('mouseup', () => {
+                follower.classList.remove('expand');
+            });
+            
+            // 链接悬停时的效果
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    follower.style.borderColor = 'rgba(41, 128, 185, 0.8)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    follower.style.boxShadow = '0 0 20px rgba(52, 152, 219, 0.5)';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    follower.style.borderColor = 'rgba(52, 152, 219, 0.5)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    follower.style.boxShadow = 'none';
+                });
+            });
+            
+            // 滚动时隐藏光晕效果以提高性能
+            let hideGlowTimeout;
+            document.addEventListener('scroll', () => {
+                glow.style.opacity = '0';
+                clearTimeout(hideGlowTimeout);
+                hideGlowTimeout = setTimeout(() => {
+                    glow.style.opacity = '1';
+                }, 200);
+            });
         }
         
         // 更新当前日期
@@ -607,6 +1084,7 @@
         document.addEventListener('DOMContentLoaded', function() {
             updateDate();
             createParticles();
+            createCursorTrail();
         });
         
         // 模拟实时更新效果

@@ -6,16 +6,56 @@
     <style>
         body {
             font-family: 'Microsoft YaHei', Arial, sans-serif;
-            background: linear-gradient(135deg, #1a2980 0%, #26d0ce 100%);
+            background: linear-gradient(135deg, #1e2228 0%, #14161a 100%);
             margin: 0;
             padding: 20px;
             min-height: 100vh;
             background-attachment: fixed;
+            color: #f0f0f0;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.05) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        /* 返回按钮样式 */
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a);
+            color: #f0f0f0;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            font-weight: bold;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            border: 1px solid rgba(52, 152, 219, 0.6);
         }
         
         .page-title {
             text-align: center;
-            color: white;
+            color: #f0f0f0;
             font-size: 2.8rem;
             text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
             margin: 20px 0;
@@ -25,32 +65,35 @@
         
         .year-badge {
             display: inline-block;
-            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            background: linear-gradient(45deg, #3498db, #2980b9);
             color: white;
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 1.2rem;
             margin-left: 15px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.3);
             vertical-align: super;
+            border: 1px solid rgba(52, 152, 219, 0.4);
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background-color: rgba(255, 255, 255, 0.95);
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
             border-radius: 15px;
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
             overflow: hidden;
             backdrop-filter: blur(10px);
+            border: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         header {
-            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
-            color: white;
+            background: linear-gradient(90deg, #2c3e50, #1a1a1a);
+            color: #f0f0f0;
             padding: 25px;
             text-align: center;
             position: relative;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         h1 {
@@ -66,17 +109,18 @@
             margin-top: 15px;
             font-weight: 300;
             letter-spacing: 1px;
+            color: #b0b0b0;
         }
         
         .section-title {
             text-align: center;
-            color: #0f2027;
+            color: #f0f0f0;
             padding: 20px 0;
             font-size: 2rem;
             margin: 0;
-            background: linear-gradient(to right, #1a2980, #26d0ce);
-            color: white;
+            background: linear-gradient(to right, #2c3e50, #1a1a1a);
             position: relative;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         .section-title:before,
@@ -86,7 +130,7 @@
             top: 50%;
             width: 100px;
             height: 3px;
-            background: linear-gradient(to right, transparent, white, transparent);
+            background: linear-gradient(to right, transparent, #3498db, transparent);
         }
         
         .section-title:before {
@@ -100,12 +144,12 @@
         .upload-section {
             padding: 30px;
             text-align: center;
-            background-color: #f8f9fa;
-            border-bottom: 2px dashed #26d0ce;
+            background: rgba(44, 62, 80, 0.5);
+            border-bottom: 2px dashed rgba(52, 152, 219, 0.3);
         }
         
         .upload-section h2 {
-            color: #0f2027;
+            color: #f0f0f0;
             margin-top: 0;
             font-size: 1.8rem;
         }
@@ -114,37 +158,41 @@
             width: 70%;
             padding: 14px;
             font-size: 16px;
-            border: 2px solid #26d0ce;
+            border: 2px solid rgba(52, 152, 219, 0.3);
             border-radius: 30px;
             outline: none;
             transition: all 0.3s;
-            box-shadow: 0 0 10px rgba(38, 208, 206, 0.2);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
+            background: rgba(26, 26, 26, 0.5);
+            color: #f0f0f0;
         }
         
         .video-input:focus {
-            border-color: #1a2980;
-            box-shadow: 0 0 15px rgba(26, 41, 128, 0.4);
+            border-color: #3498db;
+            box-shadow: 0 0 15px rgba(52, 152, 219, 0.4);
             transform: scale(1.01);
         }
         
         .load-btn {
             padding: 14px 35px;
             font-size: 17px;
-            background: linear-gradient(45deg, #1a2980, #26d0ce);
+            background: linear-gradient(45deg, #2c3e50, #3498db);
             color: white;
             border: none;
             border-radius: 30px;
             cursor: pointer;
             margin-left: 15px;
             transition: all 0.3s;
-            box-shadow: 0 5px 15px rgba(26, 41, 128, 0.4);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
             font-weight: bold;
             letter-spacing: 1px;
+            border: 1px solid rgba(52, 152, 219, 0.4);
         }
         
         .load-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(26, 41, 128, 0.6);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.6);
+            background: linear-gradient(45deg, #3498db, #2c3e50);
         }
         
         .load-btn:active {
@@ -159,26 +207,42 @@
         }
         
         .video-card {
-            background: white;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
-            border: 1px solid rgba(38, 208, 206, 0.3);
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            backdrop-filter: blur(10px);
+        }
+        
+        .video-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.1) 0%, transparent 20%);
+            z-index: -1;
         }
         
         .video-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(52, 152, 219, 0.4);
         }
         
         .video-card-header {
-            background: linear-gradient(to right, #1a2980, #26d0ce);
-            color: white;
+            background: linear-gradient(to right, #2c3e50, #1a1a1a);
+            color: #f0f0f0;
             padding: 15px;
             text-align: center;
             font-weight: bold;
             font-size: 1.3rem;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         .video-container {
@@ -187,11 +251,11 @@
         }
         
         .video-placeholder {
-            background-color: #f0f8ff;
-            border: 2px dashed #26d0ce;
+            background-color: rgba(26, 26, 26, 0.5);
+            border: 2px dashed rgba(52, 152, 219, 0.3);
             border-radius: 10px;
             padding: 40px 20px;
-            color: #666;
+            color: #b0b0b0;
             font-style: italic;
             margin: 10px 0;
         }
@@ -213,31 +277,203 @@
         
         .control-btn {
             padding: 8px 15px;
-            background: linear-gradient(to right, #1a2980, #26d0ce);
+            background: linear-gradient(to right, #2c3e50, #3498db);
             color: white;
             border: none;
             border-radius: 20px;
             cursor: pointer;
             font-size: 0.9rem;
+            border: 1px solid rgba(52, 152, 219, 0.4);
         }
         
         footer {
             text-align: center;
             padding: 25px;
-            background: linear-gradient(90deg, #0f2027, #203a43, #2c5364);
-            color: #eee;
+            background: linear-gradient(90deg, #2c3e50, #1a1a1a);
+            color: #b0b0b0;
             font-size: 1rem;
             margin-top: 20px;
+            border-top: 1px solid rgba(52, 152, 219, 0.2);
         }
         
         .badge {
             display: inline-block;
-            background: linear-gradient(45deg, #ff8a00, #e52e71);
+            background: linear-gradient(45deg, #3498db, #2980b9);
             color: white;
             padding: 3px 10px;
             border-radius: 10px;
             font-size: 0.8rem;
             margin: 0 5px;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+            border: 1px solid rgba(52, 152, 219, 0.4);
+        }
+        
+        /* 鼠标粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.5);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-1000%) translateX(1000%) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* 鼠标轨迹效果 */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: trailFade 0.5s forwards;
+        }
+
+        @keyframes trailFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2);
+            }
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, border-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower.expand {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: rgba(41, 128, 185, 0.8);
+        }
+        
+        /* 复杂轨迹元素 */
+        .complex-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            transform: translate(-50%, -50%);
+        }
+        
+        .trail-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.6);
+            transform: translate(-50%, -50%);
+            animation: dotPulse 1s infinite alternate;
+        }
+        
+        .trail-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(41, 128, 185, 0.7);
+            transform: translate(-50%, -50%);
+            animation: ringExpand 1.5s forwards;
+        }
+        
+        .trail-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(236, 240, 241, 0.8);
+            transform: translate(-50%, -50%);
+            animation: particleFloat 2s forwards;
+        }
+        
+        @keyframes dotPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes ringExpand {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 1;
+            }
+            100% {
+                width: 60px;
+                height: 60px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, 0px)));
+                opacity: 0;
+            }
+        }
+        
+        /* 光晕效果 */
+        .cursor-glow {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.3) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9996;
+            transform: translate(-50%, -50%);
+            animation: glowPulse 2s infinite alternate;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
         }
         
         @media (max-width: 768px) {
@@ -263,6 +499,8 @@
     </style>
 </head>
 <body>
+    <a href="2.html" class="back-button">返回主页</a>
+    
     <h1 class="page-title">2025 秋季运动会<span class="year-badge">NEW</span></h1>
     
     <div class="container">
@@ -284,9 +522,7 @@
                 </div>
                 <div class="video-container">
                     <div class="video-placeholder"></div>
-               <video src="vodie\微信视频2025-11-06_205921_701.mp4"controls> 
-                     
-                    </video>
+                    <video src="vodie/微信视频2025-11-06_205921_701.mp4" controls></video>
                 </div>
             </div>
             
@@ -296,7 +532,7 @@
                 </div>
                 <div class="video-container">
                     <div class="video-placeholder"></div>
-                   <video src="vodie\微信视频2025-11-06_203837_817.mp4"controls> 
+                    <video src="vodie/微信视频2025-11-06_203837_817.mp4" controls></video>
                 </div>
             </div>
             
@@ -306,11 +542,8 @@
                 </div>
                 <div class="video-container">
                     <div class="video-placeholder"></div>
-					
-					
-                <video src="vodie\微信视频2025-11-06_205915_927.mp4"controls> 
-                
-				</div>
+                    <video src="vodie/微信视频2025-11-06_205915_927.mp4" controls></video>
+                </div>
             </div>
             
             <div class="video-card">
@@ -319,10 +552,8 @@
                 </div>
                 <div class="video-container">
                     <div class="video-placeholder"></div>
-					
-                  <video src="vodie\微信视频2025-11-06_214413_103.mp4"controls> 
+                    <video src="vodie/微信视频2025-11-06_214413_103.mp4" controls></video>
                 </div>
-				
             </div>
         </div>
         
@@ -332,6 +563,304 @@
     </div>
 
     <script>
+        // 创建背景粒子效果
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles';
+            document.body.appendChild(particlesContainer);
+            
+            for (let i = 0; i < 30; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colors = ['rgba(52, 152, 219, 0.5)', 'rgba(41, 128, 185, 0.5)', 'rgba(44, 62, 80, 0.5)', 'rgba(236, 240, 241, 0.5)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机动画延迟和持续时间
+                particle.style.animationDelay = `${Math.random() * 10}s`;
+                particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        // 鼠标轨迹效果
+        function createCursorTrail() {
+            // 创建跟随鼠标的元素
+            const follower = document.createElement('div');
+            follower.className = 'cursor-follower';
+            document.body.appendChild(follower);
+            
+            // 创建光晕效果
+            const glow = document.createElement('div');
+            glow.className = 'cursor-glow';
+            document.body.appendChild(glow);
+            
+            // 存储轨迹元素的数组
+            const trails = [];
+            const colors = [
+                'rgba(52, 152, 219, 0.6)',
+                'rgba(41, 128, 185, 0.6)',
+                'rgba(44, 62, 80, 0.6)',
+                'rgba(236, 240, 241, 0.8)'
+            ];
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let trailCount = 0;
+            
+            // 鼠标移动事件
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // 更新跟随元素位置
+                follower.style.left = mouseX + 'px';
+                follower.style.top = mouseY + 'px';
+                
+                // 更新光晕位置
+                glow.style.left = mouseX + 'px';
+                glow.style.top = mouseY + 'px';
+                
+                // 创建不同类型的轨迹元素
+                if (trailCount % 5 === 0) {
+                    createDotTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 10 === 0) {
+                    createRingTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 3 === 0) {
+                    createParticleTrail(mouseX, mouseY);
+                }
+                
+                trailCount++;
+                
+                // 限制轨迹元素数量
+                if (trails.length > 50) {
+                    const oldTrail = trails.shift();
+                    if (oldTrail && oldTrail.parentNode) {
+                        oldTrail.parentNode.removeChild(oldTrail);
+                    }
+                }
+            });
+            
+            // 创建点状轨迹
+            function createDotTrail(x, y) {
+                const dot = document.createElement('div');
+                dot.className = 'complex-trail';
+                
+                const innerDot = document.createElement('div');
+                innerDot.className = 'trail-dot';
+                innerDot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                innerDot.style.width = (Math.random() * 10 + 5) + 'px';
+                innerDot.style.height = innerDot.style.width;
+                
+                dot.appendChild(innerDot);
+                dot.style.left = x + 'px';
+                dot.style.top = y + 'px';
+                
+                document.body.appendChild(dot);
+                trails.push(dot);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (dot.parentNode) {
+                        dot.parentNode.removeChild(dot);
+                        const index = trails.indexOf(dot);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 1000);
+            }
+            
+            // 创建环状轨迹
+            function createRingTrail(x, y) {
+                const ring = document.createElement('div');
+                ring.className = 'complex-trail';
+                
+                const innerRing = document.createElement('div');
+                innerRing.className = 'trail-ring';
+                innerRing.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                ring.appendChild(innerRing);
+                ring.style.left = x + 'px';
+                ring.style.top = y + 'px';
+                
+                document.body.appendChild(ring);
+                trails.push(ring);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (ring.parentNode) {
+                        ring.parentNode.removeChild(ring);
+                        const index = trails.indexOf(ring);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 1500);
+            }
+            
+            // 创建粒子轨迹
+            function createParticleTrail(x, y) {
+                const particleCount = Math.floor(Math.random() * 5) + 3;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 6 + 2) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 50 + 20;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 2000);
+                }
+            }
+            
+            // 鼠标按下时的效果
+            document.addEventListener('mousedown', () => {
+                follower.classList.add('expand');
+                // 创建扩散效果
+                for (let i = 0; i < 8; i++) {
+                    const wave = document.createElement('div');
+                    wave.className = 'complex-trail';
+                    
+                    const ring = document.createElement('div');
+                    ring.className = 'trail-ring';
+                    ring.style.borderColor = 'rgba(52, 152, 219, 0.8)';
+                    ring.style.animation = 'ringExpand 1s forwards';
+                    
+                    wave.appendChild(ring);
+                    wave.style.left = mouseX + 'px';
+                    wave.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(wave);
+                    trails.push(wave);
+                    
+                    // 自动移除波纹元素
+                    setTimeout(() => {
+                        if (wave.parentNode) {
+                            wave.parentNode.removeChild(wave);
+                            const index = trails.indexOf(wave);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1000);
+                }
+                
+                // 创建爆炸粒子效果
+                for (let i = 0; i < 15; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 8 + 4) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 100 + 50;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    innerParticle.style.animation = 'particleFloat 1s forwards';
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = mouseX + 'px';
+                    particle.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1000);
+                }
+            });
+            
+            // 鼠标松开时的效果
+            document.addEventListener('mouseup', () => {
+                follower.classList.remove('expand');
+            });
+            
+            // 链接悬停时的效果
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    follower.style.borderColor = 'rgba(41, 128, 185, 0.8)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    follower.style.boxShadow = '0 0 20px rgba(52, 152, 219, 0.5)';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    follower.style.borderColor = 'rgba(52, 152, 219, 0.5)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    follower.style.boxShadow = 'none';
+                });
+            });
+            
+            // 滚动时隐藏光晕效果以提高性能
+            let hideGlowTimeout;
+            document.addEventListener('scroll', () => {
+                glow.style.opacity = '0';
+                clearTimeout(hideGlowTimeout);
+                hideGlowTimeout = setTimeout(() => {
+                    glow.style.opacity = '1';
+                }, 200);
+            });
+        }
+        
         function addVideo() {
             const videoUrl = document.getElementById('videoUrl').value;
             
@@ -368,6 +897,12 @@
             // 清空输入框
             document.getElementById('videoUrl').value = '';
         }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            createCursorTrail();
+        });
     </script>
 </body>
 </html>

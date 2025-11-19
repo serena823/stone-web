@@ -9,23 +9,40 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Microsoft YaHei', sans-serif;
+            font-family: 'Microsoft YaHei', 'Segoe UI', sans-serif;
         }
         
         body {
-            background-color: #f5f5f5;
-            color: #333;
+            background: linear-gradient(135deg, #1e2228 0%, #14161a 100%);
+            color: #f0f0f0;
             line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.05) 0%, transparent 20%);
+            z-index: -1;
         }
         
         /* 导航栏样式 */
         .navbar {
-            background: linear-gradient(135deg, #1e5799 0%, #207cca 100%);
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
             padding: 0;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
             position: sticky;
             top: 0;
             z-index: 100;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.3);
         }
         
         .nav-container {
@@ -38,9 +55,13 @@
         }
         
         .logo {
-            color: white;
+            color: #f0f0f0;
             font-size: 24px;
             font-weight: bold;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
         .nav-links {
@@ -56,37 +77,60 @@
         }
         
         .nav-links a {
-            color: white;
+            color: #f0f0f0;
             text-decoration: none;
             padding: 10px 15px;
             border-radius: 4px;
             transition: all 0.3s ease;
             display: block;
             font-size: 14px;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+            background: rgba(44, 62, 80, 0.3);
         }
         
         .nav-links a:hover {
-            background-color: rgba(255,255,255,0.2);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
             transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(52, 152, 219, 0.6);
         }
         
         /* 页面标题 */
         .page-header {
             text-align: center;
             padding: 40px 20px;
-            background-color: white;
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.7) 0%, rgba(26, 26, 26, 0.7) 100%);
             margin-bottom: 30px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+        
+        .page-header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(52, 152, 219, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(41, 128, 185, 0.1) 0%, transparent 30%);
+            z-index: -1;
         }
         
         .page-header h1 {
-            color: #1e5799;
+            color: #f0f0f0;
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         
         .page-header p {
-            color: #666;
+            color: #b0b0b0;
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
@@ -98,55 +142,400 @@
             margin: 0 auto 40px;
             padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
         }
         
-        .photo-card {
-            background: white;
-            border-radius: 8px;
+        .photo-item {
+            background: linear-gradient(135deg, rgba(44, 62, 80, 0.9) 0%, rgba(26, 26, 26, 0.9) 100%);
+            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            border: 1px solid rgba(52, 152, 219, 0.2);
+            position: relative;
+            backdrop-filter: blur(10px);
         }
         
-        .photo-card:hover {
+        .photo-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(52, 152, 219, 0.1) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(41, 128, 185, 0.1) 0%, transparent 20%);
+            z-index: -1;
+        }
+        
+        .photo-item:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.5);
+            border: 1px solid rgba(52, 152, 219, 0.4);
         }
         
-        .photo-placeholder {
+        .photo-container {
             width: 100%;
-            height: 200px;
-            background-color: #e9e9e9;
+            height: 280px;
+            background-color: #2c3e50;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #999;
-            font-size: 14px;
+            overflow: hidden;
+            border-bottom: 1px solid rgba(52, 152, 219, 0.2);
+        }
+        
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .photo-item:hover .photo-container img {
+            transform: scale(1.05);
         }
         
         .photo-info {
-            padding: 15px;
+            padding: 20px;
         }
         
-        .photo-info h3 {
-            margin-bottom: 8px;
-            color: #333;
+        .photo-title {
+            font-size: 1.3rem;
+            color: #f0f0f0;
+            margin-bottom: 10px;
         }
         
-        .photo-info p {
-            color: #777;
-            font-size: 14px;
+        .photo-desc {
+            font-size: 1rem;
+            color: #b0b0b0;
+        }
+        
+        .empty-photo {
+            color: #888;
+            font-size: 1.1rem;
+            text-align: center;
+        }
+        
+        /* 返回首页按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #2c3e50, #1a1a1a);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(52, 152, 219, 0.3);
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            border: 1px solid rgba(52, 152, 219, 0.6);
         }
         
         /* 页脚 */
         footer {
-            background-color: #333;
-            color: white;
+            background: linear-gradient(135deg, #2c3e50 0%, #1a1a1a 100%);
+            color: #b0b0b0;
             text-align: center;
             padding: 20px;
             margin-top: 40px;
+            border-top: 1px solid rgba(52, 152, 219, 0.2);
+        }
+        
+        /* 鼠标粒子效果 */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.5);
+            animation: float 15s infinite linear;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateY(-1000%) translateX(1000%) rotate(720deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 增强的背景效果 */
+        .background-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        
+        .bg-element {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.1) 0%, transparent 70%);
+            animation: float 25s infinite linear;
+        }
+        
+        .bg-element.square {
+            border-radius: 0;
+            background: linear-gradient(45deg, rgba(52, 152, 219, 0.05) 0%, transparent 50%);
+            transform: rotate(45deg);
+        }
+        
+        .bg-element.triangle {
+            width: 0;
+            height: 0;
+            background: transparent;
+            border-left: 25px solid transparent;
+            border-right: 25px solid transparent;
+            border-bottom: 50px solid rgba(52, 152, 219, 0.1);
+            border-radius: 0;
+            transform: rotate(0deg);
+        }
+        
+        /* 复杂的鼠标轨迹效果 */
+        .cursor-trail {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.3);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            animation: trailFade 0.5s forwards;
+        }
+
+        @keyframes trailFade {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(2);
+            }
+        }
+
+        .cursor-follower {
+            position: fixed;
+            width: 40px;
+            height: 40px;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 9998;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease-out, border-color 0.3s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor-follower.expand {
+            transform: translate(-50%, -50%) scale(1.5);
+            border-color: rgba(41, 128, 185, 0.8);
+        }
+        
+        /* 复杂轨迹元素 */
+        .complex-trail {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9997;
+            transform: translate(-50%, -50%);
+        }
+        
+        .trail-dot {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(52, 152, 219, 0.6);
+            transform: translate(-50%, -50%);
+            animation: dotPulse 1s infinite alternate;
+        }
+        
+        .trail-ring {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(41, 128, 185, 0.7);
+            transform: translate(-50%, -50%);
+            animation: ringExpand 1.5s forwards;
+        }
+        
+        .trail-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(236, 240, 241, 0.8);
+            transform: translate(-50%, -50%);
+            animation: particleFloat 2s forwards;
+        }
+        
+        .trail-square {
+            position: absolute;
+            background: rgba(52, 152, 219, 0.4);
+            transform: translate(-50%, -50%) rotate(0deg);
+            animation: squareRotate 3s forwards;
+        }
+        
+        .trail-triangle {
+            position: absolute;
+            width: 0;
+            height: 0;
+            background: transparent;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 20px solid rgba(41, 128, 185, 0.6);
+            transform: translate(-50%, -50%);
+            animation: triangleFloat 2s forwards;
+        }
+        
+        @keyframes dotPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1.5);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes ringExpand {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 1;
+            }
+            100% {
+                width: 60px;
+                height: 60px;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translate(-50%, -50%);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(calc(-50% + var(--x, 0px)), calc(-50% + var(--y, 0px)));
+                opacity: 0;
+            }
+        }
+        
+        @keyframes squareRotate {
+            0% {
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) rotate(360deg) scale(0);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes triangleFloat {
+            0% {
+                transform: translate(-50%, -50%) translateY(0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) translateY(var(--y, -100px)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* 光晕效果 */
+        .cursor-glow {
+            position: fixed;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(52, 152, 219, 0.3) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 9996;
+            transform: translate(-50%, -50%);
+            animation: glowPulse 2s infinite alternate;
+        }
+        
+        @keyframes glowPulse {
+            0% {
+                opacity: 0.5;
+                transform: translate(-50%, -50%) scale(0.8);
+            }
+            100% {
+                opacity: 0.8;
+                transform: translate(-50%, -50%) scale(1.2);
+            }
+        }
+        
+        /* 班徽样式 */
+        .class-badge {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(52, 152, 219, 0.6);
+            box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
+        }
+        
+        /* 波浪效果 */
+        .wave-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            opacity: 0.1;
+        }
+        
+        .wave {
+            position: absolute;
+            border-radius: 50%;
+            border: 2px solid rgba(52, 152, 219, 0.5);
+            transform: translate(-50%, -50%) scale(0);
+            animation: wavePulse 3s infinite;
+        }
+        
+        @keyframes wavePulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0;
+            }
         }
         
         /* 响应式调整 */
@@ -168,138 +557,25 @@
             .photo-grid {
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+            
+            .photo-container {
+                height: 220px;
+            }
         }
-		       * {
-		            margin: 0;
-		            padding: 0;
-		            box-sizing: border-box;
-		            font-family: 'Microsoft YaHei', 'SimSun', sans-serif;
-		        }
-		        
-		        body {
-		            background-color: #f5f8fa;
-		            color: #333;
-		            line-height: 1.6;
-		        }
-		        
-		        .container {
-		            max-width: 1200px;
-		            margin: 0 auto;
-		            padding: 20px;
-		        }
-		        
-		        header {
-		            text-align: center;
-		            margin-bottom: 30px;
-		            padding: 20px;
-		            background: linear-gradient(135deg, #1a73e8, #0d47a1);
-		            color: white;
-		            border-radius: 10px;
-		            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-		        }
-		        
-		        h1 {
-		            font-size: 2.5rem;
-		            margin-bottom: 10px;
-		        }
-		        
-		        .subtitle {
-		            font-size: 1.2rem;
-		            opacity: 0.9;
-		        }
-		        
-		        .photo-grid {
-		            display: grid;
-		            grid-template-columns: repeat(2, 1fr);
-		            gap: 25px;
-		            margin-bottom: 40px;
-		        }
-		        
-		        .photo-item {
-		            background-color: white;
-		            border-radius: 10px;
-		            overflow: hidden;
-		            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-		            transition: transform 0.3s ease, box-shadow 0.3s ease;
-		        }
-		        
-		        .photo-item:hover {
-		            transform: translateY(-5px);
-		            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-		        }
-		        
-		        .photo-container {
-		            width: 100%;
-		            height: 280px;
-		            background-color: #f0f0f0;
-		            display: flex;
-		            align-items: center;
-		            justify-content: center;
-		            overflow: hidden;
-		            border-bottom: 1px solid #eee;
-		        }
-		        
-		        .photo-container img {
-		            width: 100%;
-		            height: 100%;
-		            object-fit: cover;
-		            transition: transform 0.5s ease;
-		        }
-		        
-		        .photo-item:hover .photo-container img {
-		            transform: scale(1.05);
-		        }
-		        
-		        .photo-info {
-		            padding: 20px;
-		        }
-		        
-		        .photo-title {
-		            font-size: 1.3rem;
-		            color: #1a73e8;
-		            margin-bottom: 10px;
-		        }
-		        
-		        .photo-desc {
-		            font-size: 1rem;
-		            color: #555;
-		        }
-		        
-		        .empty-photo {
-		            color: #888;
-		            font-size: 1.1rem;
-		            text-align: center;
-		        }
-		        
-		        footer {
-		            text-align: center;
-		            margin-top: 40px;
-		            padding: 20px;
-		            color: #666;
-		            font-size: 0.9rem;
-		            border-top: 1px solid #ddd;
-		        }
-		        
-		        @media (max-width: 768px) {
-		            .photo-grid {
-		                grid-template-columns: 1fr;
-		            }
-		            
-		            h1 {
-		                font-size: 2rem;
-		            }
-		            
-		            .photo-container {
-		                height: 220px;
-		            }
-		        }
     </style>
 </head>
 <body>
     <!-- 导航栏 -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="logo">高三(2)班</div>
+            <div class="logo">
+                <img src="img/12.png" alt="班徽" class="class-badge">
+                高三(2)班
+            </div>
             <ul class="nav-links">
                 <!-- 预留的10个空链接位置 -->
                 
@@ -308,13 +584,14 @@
                 <li><a href="ruanj.html">学习软件</a ></li>
                 <li><a href="tonz.html">通知公告</a ></li>
                 <li><a href="#">联系我们</a ></li>
+                <li><a href="index.html">返回首页</a ></li>
             </ul>
         </div>
     </nav>
 
    
        <div class="container">
-           <header>
+           <header class="page-header">
                <h1>高三(2)班活动照片墙</h1>
                <p class="subtitle">记录青春点滴，珍藏美好回忆</p >
            </header>
@@ -322,7 +599,7 @@
            <div class="photo-grid">
                <div class="photo-item">
                    <div class="photo-container">
-                       <img src="img/微信图片_20251105221332_241_58.jpg" alt="" />
+                       <img src="img/微信图片_20251105221332_241_58.jpg" alt="走进北信职" />
                        <div class="empty-photo"></div>
                    </div>
                    <div class="photo-info">
@@ -335,7 +612,7 @@
                
                <div class="photo-item">
                    <div class="photo-container">
-                    <img src="img/微信图片_20251105220242_235_58.jpg" alt="" />
+                    <img src="img/微信图片_20251105220242_235_58.jpg" alt="集体生日" />
                        <div class="empty-photo"></div>
                    </div>
                    <div class="photo-info">
@@ -346,7 +623,7 @@
                
                <div class="photo-item">
                    <div class="photo-container">
-                     <img src="img/微信图片_20251105221947_243_58.jpg" alt="" />
+                     <img src="img/微信图片_20251105221947_243_58.jpg" alt="班级荣誉" />
                        <div class="empty-photo"></div>
                    </div>
                    <div class="photo-info">
@@ -357,7 +634,7 @@
                
                <div class="photo-item">
                    <div class="photo-container">
-                       <img src="img/微信图片_20251105222249_244_58.jpg" alt="" />
+                       <img src="img/微信图片_20251105222249_244_58.jpg" alt="志愿者活动" />
                        <div class="empty-photo"></div>
                    </div>
                    <div class="photo-info">
@@ -368,7 +645,7 @@
                
                <div class="photo-item">
                    <div class="photo-container">
-                     <img src="img/微信图片_20251105221602_242_58.jpg" alt="" />
+                     <img src="img/微信图片_20251105221602_242_58.jpg" alt="节日庆祝" />
                        <div class="empty-photo"></div>
                    </div>
                    <div class="photo-info">
@@ -382,7 +659,7 @@
                
                <div class="photo-item">
                    <div class="photo-container">
-                     <img src="img/微信图片_20251105220241_234_58.jpg" alt="" />
+                     <img src="img/微信图片_20251105220241_234_58.jpg" alt="学习互助小组" />
                        <div class="empty-photo"></div>
                    </div>
                    <div class="photo-info">
@@ -395,10 +672,497 @@
           
        </div>
   
+    <a href="index.html" class="back-to-top">返回首页</a>
 
     <footer>
         <p>高三(2)班 &copy; 2023 - 保留所有权利</p >
         <p>班级相册 | 青春记忆</p >
     </footer>
+    
+    <script>
+        // 创建背景粒子效果
+        function createParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'particles';
+            document.body.appendChild(particlesContainer);
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // 随机大小
+                const size = Math.random() * 15 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // 随机位置
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colors = ['rgba(52, 152, 219, 0.5)', 'rgba(41, 128, 185, 0.5)', 'rgba(44, 62, 80, 0.5)', 'rgba(236, 240, 241, 0.5)'];
+                particle.style.background = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机动画延迟和持续时间
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${Math.random() * 25 + 15}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+            
+            // 添加背景元素
+            const bgElementsContainer = document.createElement('div');
+            bgElementsContainer.className = 'background-elements';
+            document.body.appendChild(bgElementsContainer);
+            
+            for (let i = 0; i < 20; i++) {
+                const element = document.createElement('div');
+                element.className = 'bg-element';
+                
+                // 随机类型
+                const types = ['', 'square', 'triangle'];
+                const type = types[Math.floor(Math.random() * types.length)];
+                if (type) element.classList.add(type);
+                
+                // 随机大小
+                const size = Math.random() * 100 + 20;
+                if (type !== 'triangle') {
+                    element.style.width = `${size}px`;
+                    element.style.height = `${size}px`;
+                }
+                
+                // 随机位置
+                element.style.left = `${Math.random() * 100}%`;
+                element.style.top = `${Math.random() * 100}%`;
+                
+                // 随机颜色
+                const colors = [
+                    'rgba(52, 152, 219, 0.1)',
+                    'rgba(41, 128, 185, 0.1)',
+                    'rgba(44, 62, 80, 0.1)',
+                    'rgba(236, 240, 241, 0.1)'
+                ];
+                if (type !== 'triangle') {
+                    element.style.background = colors[Math.floor(Math.random() * colors.length)];
+                }
+                
+                // 随机动画延迟和持续时间
+                element.style.animationDelay = `${Math.random() * 15}s`;
+                element.style.animationDuration = `${Math.random() * 30 + 20}s`;
+                
+                bgElementsContainer.appendChild(element);
+            }
+        }
+        
+        // 鼠标轨迹效果
+        function createCursorTrail() {
+            // 创建跟随鼠标的元素
+            const follower = document.createElement('div');
+            follower.className = 'cursor-follower';
+            document.body.appendChild(follower);
+            
+            // 创建光晕效果
+            const glow = document.createElement('div');
+            glow.className = 'cursor-glow';
+            document.body.appendChild(glow);
+            
+            // 创建波浪效果容器
+            const waveContainer = document.createElement('div');
+            waveContainer.className = 'wave-effect';
+            document.body.appendChild(waveContainer);
+            
+            // 存储轨迹元素的数组
+            const trails = [];
+            const colors = [
+                'rgba(52, 152, 219, 0.6)',
+                'rgba(41, 128, 185, 0.6)',
+                'rgba(44, 62, 80, 0.6)',
+                'rgba(236, 240, 241, 0.8)'
+            ];
+            
+            let mouseX = 0;
+            let mouseY = 0;
+            let trailCount = 0;
+            let waveCount = 0;
+            
+            // 鼠标移动事件
+            document.addEventListener('mousemove', (e) => {
+                mouseX = e.clientX;
+                mouseY = e.clientY;
+                
+                // 更新跟随元素位置
+                follower.style.left = mouseX + 'px';
+                follower.style.top = mouseY + 'px';
+                
+                // 更新光晕位置
+                glow.style.left = mouseX + 'px';
+                glow.style.top = mouseY + 'px';
+                
+                // 创建不同类型的轨迹元素
+                if (trailCount % 5 === 0) {
+                    createDotTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 10 === 0) {
+                    createRingTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 7 === 0) {
+                    createSquareTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 13 === 0) {
+                    createTriangleTrail(mouseX, mouseY);
+                }
+                
+                if (trailCount % 3 === 0) {
+                    createParticleTrail(mouseX, mouseY);
+                }
+                
+                // 创建波浪效果
+                if (waveCount % 15 === 0) {
+                    createWaveEffect(mouseX, mouseY);
+                }
+                
+                trailCount++;
+                waveCount++;
+                
+                // 限制轨迹元素数量
+                if (trails.length > 100) {
+                    const oldTrail = trails.shift();
+                    if (oldTrail && oldTrail.parentNode) {
+                        oldTrail.parentNode.removeChild(oldTrail);
+                    }
+                }
+            });
+            
+            // 创建点状轨迹
+            function createDotTrail(x, y) {
+                const dot = document.createElement('div');
+                dot.className = 'complex-trail';
+                
+                const innerDot = document.createElement('div');
+                innerDot.className = 'trail-dot';
+                innerDot.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                innerDot.style.width = (Math.random() * 15 + 5) + 'px';
+                innerDot.style.height = innerDot.style.width;
+                
+                dot.appendChild(innerDot);
+                dot.style.left = x + 'px';
+                dot.style.top = y + 'px';
+                
+                document.body.appendChild(dot);
+                trails.push(dot);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (dot.parentNode) {
+                        dot.parentNode.removeChild(dot);
+                        const index = trails.indexOf(dot);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 1500);
+            }
+            
+            // 创建环状轨迹
+            function createRingTrail(x, y) {
+                const ring = document.createElement('div');
+                ring.className = 'complex-trail';
+                
+                const innerRing = document.createElement('div');
+                innerRing.className = 'trail-ring';
+                innerRing.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                ring.appendChild(innerRing);
+                ring.style.left = x + 'px';
+                ring.style.top = y + 'px';
+                
+                document.body.appendChild(ring);
+                trails.push(ring);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (ring.parentNode) {
+                        ring.parentNode.removeChild(ring);
+                        const index = trails.indexOf(ring);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 2000);
+            }
+            
+            // 创建方形轨迹
+            function createSquareTrail(x, y) {
+                const square = document.createElement('div');
+                square.className = 'complex-trail';
+                
+                const innerSquare = document.createElement('div');
+                innerSquare.className = 'trail-square';
+                innerSquare.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                innerSquare.style.width = (Math.random() * 15 + 5) + 'px';
+                innerSquare.style.height = innerSquare.style.width;
+                
+                square.appendChild(innerSquare);
+                square.style.left = x + 'px';
+                square.style.top = y + 'px';
+                
+                document.body.appendChild(square);
+                trails.push(square);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (square.parentNode) {
+                        square.parentNode.removeChild(square);
+                        const index = trails.indexOf(square);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 3000);
+            }
+            
+            // 创建三角轨迹
+            function createTriangleTrail(x, y) {
+                const triangle = document.createElement('div');
+                triangle.className = 'complex-trail';
+                
+                const innerTriangle = document.createElement('div');
+                innerTriangle.className = 'trail-triangle';
+                innerTriangle.style.borderBottomColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                triangle.appendChild(innerTriangle);
+                triangle.style.left = x + 'px';
+                triangle.style.top = y + 'px';
+                
+                document.body.appendChild(triangle);
+                trails.push(triangle);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (triangle.parentNode) {
+                        triangle.parentNode.removeChild(triangle);
+                        const index = trails.indexOf(triangle);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 2000);
+            }
+            
+            // 创建粒子轨迹
+            function createParticleTrail(x, y) {
+                const particleCount = Math.floor(Math.random() * 8) + 5;
+                
+                for (let i = 0; i < particleCount; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 8 + 2) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 100 + 50;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = x + 'px';
+                    particle.style.top = y + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 2500);
+                }
+            }
+            
+            // 创建波浪效果
+            function createWaveEffect(x, y) {
+                const wave = document.createElement('div');
+                wave.className = 'wave';
+                wave.style.left = x + 'px';
+                wave.style.top = y + 'px';
+                wave.style.borderColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // 随机大小
+                const size = Math.random() * 50 + 30;
+                wave.style.width = size + 'px';
+                wave.style.height = size + 'px';
+                
+                document.body.appendChild(wave);
+                trails.push(wave);
+                
+                // 自动移除
+                setTimeout(() => {
+                    if (wave.parentNode) {
+                        wave.parentNode.removeChild(wave);
+                        const index = trails.indexOf(wave);
+                        if (index > -1) {
+                            trails.splice(index, 1);
+                        }
+                    }
+                }, 3000);
+            }
+            
+            // 鼠标按下时的效果
+            document.addEventListener('mousedown', () => {
+                follower.classList.add('expand');
+                // 创建扩散效果
+                for (let i = 0; i < 12; i++) {
+                    const wave = document.createElement('div');
+                    wave.className = 'complex-trail';
+                    
+                    const ring = document.createElement('div');
+                    ring.className = 'trail-ring';
+                    ring.style.borderColor = 'rgba(52, 152, 219, 0.8)';
+                    ring.style.animation = 'ringExpand 1.5s forwards';
+                    
+                    wave.appendChild(ring);
+                    wave.style.left = mouseX + 'px';
+                    wave.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(wave);
+                    trails.push(wave);
+                    
+                    // 自动移除波纹元素
+                    setTimeout(() => {
+                        if (wave.parentNode) {
+                            wave.parentNode.removeChild(wave);
+                            const index = trails.indexOf(wave);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1500);
+                }
+                
+                // 创建爆炸粒子效果
+                for (let i = 0; i < 25; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'complex-trail';
+                    
+                    const innerParticle = document.createElement('div');
+                    innerParticle.className = 'trail-particle';
+                    innerParticle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerParticle.style.width = (Math.random() * 12 + 6) + 'px';
+                    innerParticle.style.height = innerParticle.style.width;
+                    
+                    // 设置随机移动方向
+                    const angle = Math.random() * Math.PI * 2;
+                    const distance = Math.random() * 150 + 80;
+                    const xOffset = Math.cos(angle) * distance;
+                    const yOffset = Math.sin(angle) * distance;
+                    
+                    innerParticle.style.setProperty('--x', xOffset + 'px');
+                    innerParticle.style.setProperty('--y', yOffset + 'px');
+                    innerParticle.style.animation = 'particleFloat 1.5s forwards';
+                    
+                    particle.appendChild(innerParticle);
+                    particle.style.left = mouseX + 'px';
+                    particle.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(particle);
+                    trails.push(particle);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (particle.parentNode) {
+                            particle.parentNode.removeChild(particle);
+                            const index = trails.indexOf(particle);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 1500);
+                }
+                
+                // 创建方形爆炸效果
+                for (let i = 0; i < 8; i++) {
+                    const square = document.createElement('div');
+                    square.className = 'complex-trail';
+                    
+                    const innerSquare = document.createElement('div');
+                    innerSquare.className = 'trail-square';
+                    innerSquare.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    innerSquare.style.width = (Math.random() * 15 + 10) + 'px';
+                    innerSquare.style.height = innerSquare.style.width;
+                    innerSquare.style.animation = 'squareRotate 2s forwards';
+                    
+                    square.appendChild(innerSquare);
+                    square.style.left = mouseX + 'px';
+                    square.style.top = mouseY + 'px';
+                    
+                    document.body.appendChild(square);
+                    trails.push(square);
+                    
+                    // 自动移除
+                    setTimeout(() => {
+                        if (square.parentNode) {
+                            square.parentNode.removeChild(square);
+                            const index = trails.indexOf(square);
+                            if (index > -1) {
+                                trails.splice(index, 1);
+                            }
+                        }
+                    }, 2000);
+                }
+            });
+            
+            // 鼠标松开时的效果
+            document.addEventListener('mouseup', () => {
+                follower.classList.remove('expand');
+            });
+            
+            // 链接悬停时的效果
+            document.querySelectorAll('a').forEach(link => {
+                link.addEventListener('mouseenter', () => {
+                    follower.style.borderColor = 'rgba(41, 128, 185, 0.8)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1.5)';
+                    follower.style.boxShadow = '0 0 20px rgba(52, 152, 219, 0.5)';
+                });
+                
+                link.addEventListener('mouseleave', () => {
+                    follower.style.borderColor = 'rgba(52, 152, 219, 0.5)';
+                    follower.style.transform = 'translate(-50%, -50%) scale(1)';
+                    follower.style.boxShadow = 'none';
+                });
+            });
+            
+            // 滚动时隐藏光晕效果以提高性能
+            let hideGlowTimeout;
+            document.addEventListener('scroll', () => {
+                glow.style.opacity = '0';
+                clearTimeout(hideGlowTimeout);
+                hideGlowTimeout = setTimeout(() => {
+                    glow.style.opacity = '1';
+                }, 200);
+            });
+        }
+        
+        // 初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            createCursorTrail();
+        });
+    </script>
 </body>
 </html>
